@@ -1,5 +1,10 @@
 drop database mensadan;
 
+create user Servidor with password 'servidor';
+ALTER USER servidor WITH CREATEDB;
+
+\c postgres servidor;
+
 Create database mensadan;
 
 \c mensadan
@@ -27,14 +32,14 @@ CREATE TABLE IF NOT EXISTS Conversacion (
     fechaInicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-/*CREATE TABLE IF NOT EXISTS Participante (
+CREATE TABLE IF NOT EXISTS Participante (
     idPart SERIAL PRIMARY KEY,
     idConv INT NOT NULL,
     ipUsuario VARCHAR NOT NULL,
     fechaEntrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (idConv) REFERENCES Conversacion(idConv) ON DELETE CASCADE,
     FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE
-);*/
+);
 
 CREATE TABLE IF NOT EXISTS Mensaje (
     idMnj SERIAL PRIMARY KEY,
@@ -46,3 +51,13 @@ CREATE TABLE IF NOT EXISTS Mensaje (
     FOREIGN KEY (idConv) REFERENCES Conversacion(idConv) ON DELETE CASCADE,
     FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE
 );
+--------------------------------------------------------------
+CREATE OR REPLACE VIEW VistaNombresContactos AS
+SELECT 
+    c.ipUsuario AS ipUsuarioPrincipal,
+    c.nombreCon AS nombreContacto
+FROM 
+    Contacto c
+JOIN 
+    Usuario u ON c.ipUsCont = u.ipUsuario;
+-------------------------------------------------------------------
