@@ -115,6 +115,37 @@ public class ContactoDao {
         return contactos;
     }
     
+    /**
+ * Obtener la dirección IP de un contacto dado su nombre.
+ *
+ * @param nombre Nombre del contacto.
+ * @param ipUsuario Dirección IP del usuario asociado.
+ * @return La dirección IP del contacto si existe, o null si no se encuentra.
+ */
+    public String obtenerIpContactoPorNombre(String nombre, String ipUsuario) {
+        String sql = "SELECT ipUsCont FROM Contacto WHERE nombreCon = ? AND ipUsuario = ?";
+        String ipContacto = null;
+
+        try (Connection con = conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nombre);
+            ps.setString(2, ipUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ipContacto = rs.getString("ipUsCont");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener la IP del contacto por nombre: " + e.getMessage());
+        }
+
+        return ipContacto;
+    }
+
+    
     
     /**
      * Método privado para cerrar los recursos de base de datos.

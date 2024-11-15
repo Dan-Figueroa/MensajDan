@@ -55,6 +55,8 @@ public class PanelPrincipalController implements ActionListener{
                         System.out.println("Contacto seleccionado: " + nombreContacto);
                         panelUtil.mostrarPanel(principalV.jPanelMensajeria);
                         principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
+                        String ipContacto = ObtenerIpContacto( nombreContacto);
+                        principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);//prueba para visualizar el ip del contacto
                         Server.iniciarserver();  
                         panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                     }
@@ -152,6 +154,18 @@ public class PanelPrincipalController implements ActionListener{
         principalV.jLabelIPUser.setText(user.getIpUsuario());
         principalV.jTextFieldInformacionUser.setText(user.getInformacion());
         principalV.jTextFieldInformacionUser.setEditable(false);
+    }
+    
+    public String ObtenerIpContacto(String nom){
+        ContactoDao contactoDao = new ContactoDao();
+        String ipContacto = contactoDao.obtenerIpContactoPorNombre(nom, ip);
+
+        if (ipContacto != null) {
+            System.out.println("La IP del contacto es: " + ipContacto);
+        } else {
+            System.out.println("Contacto no encontrado.");
+        }
+        return ipContacto;
     }
 
 

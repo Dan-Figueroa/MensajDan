@@ -102,6 +102,7 @@ public class TelefonoView extends javax.swing.JFrame {
         jButtonEnviar = new javax.swing.JButton();
         jButtonRegresarMen = new javax.swing.JButton();
         jLabelNombreContac = new javax.swing.JLabel();
+        jLabelPruebaIPconta = new javax.swing.JLabel();
         jLabeImageMensajeria = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -262,7 +263,7 @@ public class TelefonoView extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jPanelMensajeria.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 280, 430));
+        jPanelMensajeria.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 280, 420));
 
         jTextFieldMensaje.setBackground(new java.awt.Color(219, 219, 219));
         jTextFieldMensaje.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
@@ -278,6 +279,12 @@ public class TelefonoView extends javax.swing.JFrame {
         jLabelNombreContac.setForeground(new java.awt.Color(51, 102, 255));
         jLabelNombreContac.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jPanelMensajeria.add(jLabelNombreContac, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 110, 20));
+
+        jLabelPruebaIPconta.setBackground(new java.awt.Color(51, 51, 255));
+        jLabelPruebaIPconta.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabelPruebaIPconta.setForeground(new java.awt.Color(51, 51, 255));
+        jLabelPruebaIPconta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanelMensajeria.add(jLabelPruebaIPconta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 127, 110, 20));
 
         jLabeImageMensajeria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/chat.jpeg"))); // NOI18N
         jPanelMensajeria.add(jLabeImageMensajeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 670));
@@ -422,6 +429,7 @@ public class TelefonoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelImganChat;
     private javax.swing.JLabel jLabelMageUser;
     public javax.swing.JLabel jLabelNombreContac;
+    public javax.swing.JLabel jLabelPruebaIPconta;
     public javax.swing.JPanel jPaneNuevoUser;
     public javax.swing.JPanel jPanelChat;
     public javax.swing.JPanel jPanelContacto;
