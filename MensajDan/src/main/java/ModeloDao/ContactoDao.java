@@ -43,20 +43,17 @@ public class ContactoDao {
 
         return resultado;
     }
-
-
     
     public ArrayList<Contactos> obtenerNombresContactos(String ipUsuario) {
        ArrayList<Contactos> nombresContactos = new ArrayList<>(); 
        String sql = "SELECT nombreContacto FROM VistaNombresContactos WHERE ipUsuarioPrincipal = ?";
 
-       // Usamos try-with-resources para garantizar que los recursos se cierren adecuadamente
        try (
-           Connection con = conectar.connectDatabase(); // Usamos try-with-resources para Connection
-           PreparedStatement ps = con.prepareStatement(sql) // Preparas la sentencia
+           Connection con = conectar.connectDatabase(); // Conexión a la base de datos
+           PreparedStatement ps = con.prepareStatement(sql) // Preparación de la consulta
        ) {
-           ps.setString(1, ipUsuario);  // Asignamos la IP al PreparedStatement
-           try (ResultSet rs = ps.executeQuery()) {  // Ejecutamos la consulta y gestionamos el ResultSet
+           ps.setString(1, ipUsuario);  // Asigna la IP al PreparedStatement
+           try (ResultSet rs = ps.executeQuery()) {  // Ejecuta la consulta y gestiona el ResultSet
                while (rs.next()) {
                    Contactos contacto = new Contactos();
                    contacto.setNombreCon(rs.getString("nombreContacto"));
@@ -67,26 +64,34 @@ public class ContactoDao {
            e.printStackTrace();  // Manejo de excepciones SQL
        }
        return nombresContactos;
-   }
-
-
-
-    // Método para obtener todos los contactos de un usuario
-    public ResultSet obtenerContactos(String ipUsuario) {
-        String sql = "SELECT * FROM Contacto WHERE ipUsuario = ?";
-        ResultSet rs = null;
-        
-        try {
-            con = conectar.connectDatabase();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, ipUsuario);
-            rs = ps.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return rs;
     }
+    
+    public ArrayList<Contactos> buscarContactosPorNombre(String nombre, String ipUsuario) {
+        ArrayList<Contactos> contactos = new ArrayList<>();
+        String sql = "SELECT * FROM Contacto WHERE nombreCon LIKE ? AND ipUsuario = ?";  // Filtramos por nombre y ipUsuario
+
+        try (
+            Connection con = conectar.connectDatabase();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, "%" + nombre + "%");  // Añadimos "%" para permitir coincidencias parciales en el nombre
+            ps.setString(2, ipUsuario);  // Filtramos por la IP del usuario en la aplicación
+
+            try (ResultSet rs = ps.executeQuery()) {  
+                while (rs.next()) {
+                    Contactos contacto = new Contactos();
+                    contacto.setNombreCon(rs.getString("nombreCon"));
+                    contactos.add(contacto);  // Añadimos el contacto a la lista
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // Manejo de excepciones SQL
+        }
+
+        return contactos;  // Retorna la lista de contactos encontrados (puede estar vacía)
+    }
+
+
 
     private void closeResources() {
         try {

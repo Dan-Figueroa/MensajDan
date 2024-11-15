@@ -58,6 +58,7 @@ public class PanelLogginController implements ActionListener{
         Usuario usuarioAutenticado = validarInicioSesion();
         if (usuarioAutenticado != null) {
             logginV.pricipalC.setUsuario(usuarioAutenticado.getIpUsuario());
+            logginV.contactoC.setUsuario(usuarioAutenticado.getIpUsuario());
             System.out.println("Inicio de sesión exitoso. IP del usuario: " + usuarioAutenticado.getIpUsuario());
             panelUtil.mostrarPanel(logginV.jPanelPrincipal);
             panelUtil.cerrarPanel(logginV.jPanelLoggin);

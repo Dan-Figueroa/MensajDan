@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,7 +29,7 @@ public class PanelPrincipalController implements ActionListener{
     TelefonoView principalV;
     private BotonesInvisibles btn;
     private PanelesVisibles panelUtil;
-    String ip;
+    private String ip;
 
     public PanelPrincipalController(TelefonoView principalV) {
         this.principalV = principalV;
@@ -38,6 +40,21 @@ public class PanelPrincipalController implements ActionListener{
         this.principalV.jButtonBuscarContacto.addActionListener(this);
         this.principalV.jButtonPerfil.addActionListener(this);
         this.principalV.jButtonChats.addActionListener(this);
+        principalV.jTableContac.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) { // Solo actúa cuando la selección finaliza
+                    int selectedRow = principalV.jTableContac.getSelectedRow();
+                    if (selectedRow != -1) {
+                        String nombreContacto = principalV.jTableContac.getValueAt(selectedRow, 0).toString();
+                        System.out.println("Contacto seleccionado: " + nombreContacto);
+                        panelUtil.mostrarPanel(principalV.jPanelMensajeria);
+                        principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
+                        panelUtil.cerrarPanel(principalV.jPanelPrincipal);
+                    }
+                }
+            }
+        });
         
     }
 
@@ -48,7 +65,7 @@ public class PanelPrincipalController implements ActionListener{
             panelUtil.cerrarPanel(principalV.jPanelPrincipal);
         }else if(this.principalV.jButtonBuscarContacto == ae.getSource()){
             System.out.println("busco contacto");
-            Mostrar();
+            BuscarContactos();
         }else if(this.principalV.jButtonPerfil == ae.getSource()){
             panelUtil.mostrarPanel(principalV.jPanelUser);
             panelUtil.cerrarPanel(principalV.jPanelPrincipal);
@@ -62,20 +79,33 @@ public class PanelPrincipalController implements ActionListener{
         System.out.println("La IP del usuario es: " + ip);
         Mostrar(); // Carga los contactos o la información del usuario si es necesario
     }
+    
+    public void BuscarContactos(){
+        String nombre = principalV.jTextFieldBuscarContacto.getText();
+        if (nombre != null && !nombre.isEmpty()) {
+            BuscarContacto(nombre);  // Solo llamamos a BuscarContacto si el nombre no está vacío
+        } else {
+            System.out.println("El campo de búsqueda está vacío.");
+            Mostrar();
+        }
+    }
 
     
     
-    public JTable MostrarContactos(ArrayList<Contactos> contacto){
-         DefaultTableModel modeloTabla = new DefaultTableModel();
-         modeloTabla.addColumn("");
-         for (Contactos gente : contacto) {
-            modeloTabla.addRow(new Object[]{
-                gente.getNombreCon(),
-            });
+    public JTable MostrarContactos(ArrayList<Contactos> contacto) {
+        DefaultTableModel modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Hace todas las celdas no editables
+            }
+        };
+        modeloTabla.addColumn("");
+        for (Contactos gente : contacto) {
+            modeloTabla.addRow(new Object[]{gente.getNombreCon()});
         }
         JTable tablaContactos = new JTable(modeloTabla);
         tablaContactos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tablaContactos.getColumnModel().getColumn(0).setPreferredWidth(200); 
+        tablaContactos.getColumnModel().getColumn(0).setPreferredWidth(202);
         return tablaContactos;
     }
     
@@ -85,10 +115,25 @@ public class PanelPrincipalController implements ActionListener{
         System.out.println("Datos recuperados: " + contac.size() + " contactos."+ ip);
         JTable tabla1 = MostrarContactos(contac);
         principalV.jTableContac.setModel(tabla1.getModel());
-        principalV.jTableContac.getColumnModel().getColumn(0).setPreferredWidth(200);
+        principalV.jTableContac.getColumnModel().getColumn(0).setPreferredWidth(202);
         principalV.jTableContac.revalidate();
         principalV.jTableContac.repaint();
     }
+    
+    public void BuscarContacto(String nombre) {
+     ContactoDao contDao = new ContactoDao();
+     ArrayList<Contactos> contac = contDao.buscarContactosPorNombre(nombre, ip);
+     if (contac.isEmpty()) {
+         Mostrar(); 
+     } else {
+         JTable tabla1 = MostrarContactos(contac);
+         principalV.jTableContac.setModel(tabla1.getModel());
+         principalV.jTableContac.getColumnModel().getColumn(0).setPreferredWidth(202);
+         principalV.jTableContac.revalidate();
+         principalV.jTableContac.repaint();
+     }
+ }
+
 
 
 }
