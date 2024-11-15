@@ -23,10 +23,11 @@ public class PanelUserController implements ActionListener{
         this.userV = userV;
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
-        btn.hacerBotonesInvisibles(userV.jButtonCerrarSesion,userV.jButtonChatPrincipal, userV.jButtonUser );
+        btn.hacerBotonesInvisibles(userV.jButtonCerrarSesion,userV.jButtonChatPrincipal, userV.jButtonUser, userV.jButtonHabilitarJtext);
         this.userV.jButtonCerrarSesion.addActionListener(this);
         this.userV.jButtonChatPrincipal.addActionListener(this);
         this.userV.jButtonUser.addActionListener(this);
+        this.userV.jButtonHabilitarJtext.addActionListener(this);
     }
     
     @Override
@@ -36,9 +37,14 @@ public class PanelUserController implements ActionListener{
             panelUtil.cerrarPanel(userV.jPanelUser);
         }else if(this.userV.jButtonChatPrincipal == ae.getSource()){
             panelUtil.mostrarPanel(userV.jPanelPrincipal);
+            userV.jTextFieldInformacionUser.setEditable(false);
+            userV.jTextFieldNombreUser.setEditable(false);
             panelUtil.cerrarPanel(userV.jPanelUser);
         }else if(this.userV.jButtonUser == ae.getSource()){
             System.out.println("user ahi mismo");
+        }else if(userV.jButtonHabilitarJtext == ae.getSource()){
+            userV.jTextFieldInformacionUser.setEditable(true);
+            userV.jTextFieldNombreUser.setEditable(true);
         }
     }
     

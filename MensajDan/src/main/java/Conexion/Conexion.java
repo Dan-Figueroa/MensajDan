@@ -13,64 +13,75 @@ import java.sql.SQLException;
  * @author david_alcazar
  */
 public class Conexion {
-private static Conexion instancia;
-    private Connection connection = null;
+ private static Conexion instancia; // Instancia única de la clase
+    private Connection connection;     // Conexión a la base de datos
+    private static final String URL = "jdbc:postgresql://localhost:5434/mensadan";
+    private static final String USER = "servidor";
+    private static final String PASSWORD = "servidor";
 
+    // Constructor privado para evitar instanciación directa
     private Conexion() {
         try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5434/mensadan",
-                    "servidor", "servidor");
-            boolean valid = connection.isValid(50000);
-            System.out.println(valid ? "TEST OK" : "TEST FAIL");
+            Class.forName("org.postgresql.Driver"); // Cargar el driver
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            if (connection.isValid(5000)) { // Verificar si la conexión es válida
+                System.out.println("Conexión establecida correctamente.");
+            }
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Error al conectar con la base de datos: " + ex);
+            System.err.println("Error al conectar con la base de datos: " + ex.getMessage());
         }
     }
 
-    public static Conexion getInstance() {
+    /**
+     * Método para obtener la instancia única de la clase.
+     * @return Instancia de Conexion
+     */
+    public static synchronized Conexion getInstance() {
         if (instancia == null) {
             instancia = new Conexion();
         }
         return instancia;
     }
 
-    public Connection connectDatabase() {
+    /**
+     * Método para obtener la conexión actual.
+     * Si la conexión está cerrada, intenta reabrirla.
+     * @return Objeto Connection
+     */
+    public Connection getConnection() {
         try {
-            // Verifica si la conexión está cerrada y vuelve a abrirla si es necesario
             if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5434/mensadan",
-                        "servidor", "servidor");
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
             }
         } catch (SQLException ex) {
-            System.out.println("Error al reconectar con la base de datos: " + ex);
+            System.err.println("Error al reconectar con la base de datos: " + ex.getMessage());
         }
         return connection;
     }
 
-    // Método para cerrar la conexión al finalizar la aplicación
+    /**
+     * Método para cerrar la conexión al finalizar la aplicación.
+     */
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Conexión cerrada correctamente");
+                System.out.println("Conexión cerrada correctamente.");
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cerrar la conexión: " + ex);
+            System.err.println("Error al cerrar la conexión: " + ex.getMessage());
         }
     }
-    
+
     public static void main(String[] args) {
+        // Prueba de la clase Conexion
         Conexion conexion = Conexion.getInstance();
-        Connection conn = conexion.connectDatabase();
+        Connection conn = conexion.getConnection();
         if (conn != null) {
-            System.out.println("Conexión exitosa a la base de datos");
-            // Llama a closeConnection() al finalizar el programa para cerrar la conexión
-            conexion.closeConnection();
+            System.out.println("Conexión exitosa a la base de datos.");
+            conexion.closeConnection(); // Cerrar conexión al terminar
         } else {
-            System.out.println("Error en la conexión a la base de datos");
+            System.err.println("Error al establecer la conexión.");
         }
     }
 }

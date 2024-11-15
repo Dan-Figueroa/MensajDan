@@ -16,17 +16,20 @@ public class Usuario {
     private String nombre;
     private String contraseña;
     private String estado;
+    private String informacion;
     private Timestamp fechaCreacion;
 
     public Usuario() {
     }
 
     // Constructor completo
-    public Usuario(String ipUsuario, String nombre, String contraseña, String estado, Timestamp fechaCreacion) {
+    
+    public Usuario(String ipUsuario, String nombre, String contraseña, String estado, String informacion, Timestamp fechaCreacion) {
         this.ipUsuario = ipUsuario;
         this.nombre = nombre;
         this.contraseña = contraseña;
         this.estado = estado;
+        this.informacion = informacion;
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -70,5 +73,15 @@ public class Usuario {
     public void setFechaCreacion(Timestamp fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
+
+    public String getInformacion() {
+        return informacion;
+    }
+
+    public void setInformacion(String informacion) {
+        this.informacion = informacion;
+    }
+    
+    
 
 }

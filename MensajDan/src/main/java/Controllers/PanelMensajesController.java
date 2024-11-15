@@ -5,6 +5,7 @@
 package Controllers;
 
 import Utils.BotonesInvisibles;
+import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
 import java.awt.event.ActionEvent;
@@ -19,12 +20,14 @@ public class PanelMensajesController implements ActionListener{
 
     TelefonoView mensaV;
     private PanelesVisibles panelUtil;
+    private LimpiarCampos limpiaCampo;
     private BotonesInvisibles btn;
 
     public PanelMensajesController(TelefonoView mensaV) {
         this.mensaV = mensaV;
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
+        this.limpiaCampo = new LimpiarCampos();
         btn.hacerBotonesInvisibles(mensaV.jButtonRegresarMen,mensaV.jButtonEnviar );
         this.mensaV.jButtonRegresarMen.addActionListener(this);
         this.mensaV.jButtonEnviar.addActionListener(this);
@@ -48,6 +51,11 @@ public class PanelMensajesController implements ActionListener{
         } else {
             System.out.println("El campo de mensaje está vacío.");
         }
+    }
+    
+    public void limpiardatos(){
+        limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);
+        limpiaCampo.limpiarTextAreas(mensaV.jTextArea1);
     }
     
 }
