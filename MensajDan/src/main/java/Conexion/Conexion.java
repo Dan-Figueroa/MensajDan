@@ -20,7 +20,7 @@ private static Conexion instancia;
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5434/mensadan",
+                    "jdbc:postgresql://localhost:5433/mensadan",
                     "servidor", "servidor");
             boolean valid = connection.isValid(50000);
             System.out.println(valid ? "TEST OK" : "TEST FAIL");
@@ -41,7 +41,7 @@ private static Conexion instancia;
             // Verifica si la conexión está cerrada y vuelve a abrirla si es necesario
             if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5434/mensadan",
+                        "jdbc:postgresql://localhost:5433/mensadan",
                         "servidor", "servidor");
             }
         } catch (SQLException ex) {
