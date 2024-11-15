@@ -14,11 +14,12 @@ CREATE TABLE IF NOT EXISTS Usuario (
     nombre VARCHAR NOT NULL,
     contraseña VARCHAR NOT NULL,
     estado VARCHAR CHECK (estado IN ('en línea', 'desconectado')),
-    fechaCrea TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS Contacto (
     idCont SERIAL PRIMARY KEY,
+    nombreCon VARCHAR,
     ipUsuario VARCHAR NOT NULL,--ESTE ES EL ID DEL USUARIO QUE VA A DAR DE ALTA A SU CONTACTO
     ipUsCont VARCHAR NOT NULL,--IP DEL CONTACO DEL USUARIO DE ARRIBA 
     UNIQUE (ipUsuario, ipUsCont),
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS Mensaje (
     FOREIGN KEY (idConv) REFERENCES Conversacion(idConv) ON DELETE CASCADE,
     FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE
 );
+
 --------------------------------------------------------------
 CREATE OR REPLACE VIEW VistaNombresContactos AS
 SELECT 

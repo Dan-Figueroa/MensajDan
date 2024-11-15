@@ -8,6 +8,7 @@ import Modelo.Usuario;
 import ModeloDao.UsuarioDao;
 import Servicios.NuevoUserServicio;
 import Utils.BotonesInvisibles;
+import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,7 @@ public class PanelNuevoUserController implements ActionListener{
     NuevoUserServicio service;
     private final PanelesVisibles panelUtil;
     private Usuario usuario;
+    private LimpiarCampos limpiarCampos;
     private UsuarioDao useDao;
 
     public PanelNuevoUserController(TelefonoView nuevoUser) {
@@ -33,6 +35,7 @@ public class PanelNuevoUserController implements ActionListener{
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
         this.service = new NuevoUserServicio();
+        this.limpiarCampos = new LimpiarCampos();
         btn.hacerBotonesInvisibles(nuevoUser.jButtonCrearUser, nuevoUser.jButtonRegresarNuevoUser);
         this.nuevoUser.jButtonCrearUser.addActionListener(this);
         this.nuevoUser.jButtonRegresarNuevoUser.addActionListener(this);
@@ -60,10 +63,17 @@ public class PanelNuevoUserController implements ActionListener{
                 JOptionPane.showMessageDialog(null, "USUARIO CREADO");
                 panelUtil.mostrarPanel(nuevoUser.jPanelLoggin);
                 panelUtil.cerrarPanel(nuevoUser.jPaneNuevoUser); 
+                limpiardatos();
+                
             }else{
                 JOptionPane.showMessageDialog(null, "ERROR AL CREAR USUARIO");
             }
         }
+    }
+    
+     public void limpiardatos(){
+        limpiarCampos.limpiarTextFields(nuevoUser.jTextFieldNom);
+        limpiarCampos.limpiarPasswordFields(nuevoUser.jPasswordFieldContraRegis);
     }
 
 }

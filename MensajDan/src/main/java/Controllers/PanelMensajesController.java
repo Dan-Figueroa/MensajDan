@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 /**
  *
  * @author david_alcazar
+ * Controlador para controlar el envio de mensaje a cada contacto
  */
 public class PanelMensajesController implements ActionListener{
 
@@ -41,13 +42,8 @@ public class PanelMensajesController implements ActionListener{
     
     public void EnviarMensaje(){
         String mensaje = mensaV.jTextFieldMensaje.getText();
-        
-        // Verificar que no esté vacío antes de enviar
         if (mensaje != null && !mensaje.trim().isEmpty()) {
-            // Agregar el mensaje al JTextArea
             mensaV.jTextArea1.append("Yo: " + mensaje + "\n");
-
-            // Limpiar el JTextField para el próximo mensaje
             mensaV.jTextFieldMensaje.setText("");
         } else {
             System.out.println("El campo de mensaje está vacío.");
