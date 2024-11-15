@@ -19,80 +19,88 @@ import java.util.Date;
  *
  * @author danfigueroa
  */
-public class Conector extends Thread{
-    TelefonoView mensaV;
+public class Conector extends Thread {
+    private TelefonoView mensaV;
     private Socket s;
     private ServerSocket ss;
-    private InputStreamReader entradaSocket;   //the socket entry
-    private DataOutputStream salida;           //data output for send messages
-    private BufferedReader entrada;            //data entry for read messages
-    final int puerto=8000;
-    DateFormat hora = new SimpleDateFormat("HH:mm:ss");
-    Date horaActual = new Date();
+    private InputStreamReader entradaSocket;
+    private DataOutputStream salida;
+    private BufferedReader entrada;
+    private final int puerto = 8000;
+    private boolean servidorActivo = true;
 
     public Conector(TelefonoView mensaV) {
         this.mensaV = mensaV;
-         try{
-            ss=new ServerSocket(puerto);       
-            s=ss.accept();   
-             //creacion de entrada de datos para lectura de mensajes     
-            entradaSocket=new InputStreamReader(s.getInputStream());
-            entrada=new BufferedReader(entradaSocket);
-            salida=new DataOutputStream(s.getOutputStream());
-            this.salida.writeUTF("****** CONECTADO *******\n \n");
-        }catch(Exception e){
-             System.out.println("el error es:"+e);
-        }
     }
     
-     public Conector(String ip){
-        try{
-
-           s=new Socket(ip,this.puerto);   
-           entradaSocket=new InputStreamReader(s.getInputStream());
-           entrada=new BufferedReader(entradaSocket);    
-           salida=new DataOutputStream(s.getOutputStream());
-         }catch(Exception e){
-              System.out.println("el error es:"+e);
-         }
-     }
-     
-     public void run(){
-      String texto="text";
-      while(true){
-        try{
-          texto=entrada.readLine();
-          mensaV.jTextArea1.setText(mensaV.jTextArea1.getText()+"\n"+texto);
-        }catch(IOException e){
-             System.out.println("el error es:"+e);
-        };
-      }
+     public Conector() {
+        this.mensaV = null; // Si no hay vista asociada
     }
-     
+
+    public void iniciarServidor() {
+        new Thread(() -> {
+            try {
+                ss = new ServerSocket(puerto);
+                System.out.println("Servidor iniciado en el puerto " + puerto);
+
+                while (servidorActivo) {
+                    System.out.println("Esperando conexiones...");
+                    s = ss.accept(); // Acepta la conexión de un cliente
+
+                    System.out.println("Cliente conectado: " + s.getInetAddress());
+                    entradaSocket = new InputStreamReader(s.getInputStream());
+                    entrada = new BufferedReader(entradaSocket);
+                    salida = new DataOutputStream(s.getOutputStream());
+
+                    salida.writeUTF("****** CONECTADO *******\n \n");
+
+                    // Inicia un nuevo hilo para manejar al cliente conectado
+                    new Thread(this::gestionarCliente).start();
+                }
+            } catch (IOException e) {
+                System.out.println("Error en el servidor: " + e.getMessage());
+            }
+        }).start();
+    }
+
+    private void gestionarCliente() {
+        try {
+            String texto;
+            while ((texto = entrada.readLine()) != null) {
+                System.out.println("Mensaje recibido: " + texto);
+                if (mensaV != null) {
+                    mensaV.jTextArea1.setText(mensaV.jTextArea1.getText() + "\n" + texto);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al gestionar cliente: " + e.getMessage());
+        }
+    }
+
     public void enviarMSG(String msg) {
         try {
-            salida.writeUTF(hora.format(horaActual) + " - " + msg + "\n");
+            if (salida != null) {
+                DateFormat hora = new SimpleDateFormat("HH:mm:ss");
+                Date horaActual = new Date();
+                salida.writeUTF(hora.format(horaActual) + " - " + msg + "\n");
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error al enviar mensaje: " + e.getMessage());
         }
     }
-    
-    public String leerMSG(){ 
-       try{
-          return entrada.readLine();
-       }catch(IOException e){
-           System.out.println("el error es:"+e);
-       };
-       return null;
+
+    public void detenerServidor() {
+        servidorActivo = false;
+        try {
+            if (ss != null) {
+                ss.close();
+            }
+            if (s != null) {
+                s.close();
+            }
+            System.out.println("Servidor detenido.");
+        } catch (IOException e) {
+            System.out.println("Error al detener el servidor: " + e.getMessage());
+        }
     }
-    
-     public void desconectar()     
-     {  
-        try{
-            s.close();
-           }catch(IOException e){};
-        try{
-            ss.close();
-            }catch(IOException e){};
-     }        
 }

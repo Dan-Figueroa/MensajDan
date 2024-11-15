@@ -5,6 +5,7 @@
 package Controllers;
 
 import Modelo.Conector;
+import Server.Server;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
@@ -25,7 +26,7 @@ public class PanelMensajesController implements ActionListener{
     TelefonoView mensaV;
     private PanelesVisibles panelUtil;
     private BotonesInvisibles btn;
-    public static Conector Servidor;
+    public static Conector conector;
     DateFormat  hora = new SimpleDateFormat("HH:mm:ss");
     Date horaactual= new Date();
 
@@ -43,8 +44,9 @@ public class PanelMensajesController implements ActionListener{
         if(this.mensaV.jButtonRegresarMen == ae.getSource()){
             panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
             panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
+            Server.cerrarserver();
         }else if(this.mensaV.jButtonEnviar == ae.getSource()){
-            Servidor.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
+            conector.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
             this.mensaV.jTextFieldMensaje.getText());
             this.mensaV.jTextArea1.setForeground(Color.black);
             this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
@@ -53,21 +55,4 @@ public class PanelMensajesController implements ActionListener{
             mensaV.jTextFieldMensaje.setText("");
             }
     }
-    
-    public void EnviarMensaje(){
-        String mensaje = mensaV.jTextFieldMensaje.getText();
-        if (mensaje != null && !mensaje.trim().isEmpty()) {
-            mensaV.jTextArea1.append("Yo: " + mensaje + "\n");
-            mensaV.jTextFieldMensaje.setText("");
-        } else {
-            System.out.println("El campo de mensaje está vacío.");
-        }
-    }
-    
-     public static void iniciarserver(){
-        Servidor = new Conector();
-        Servidor.start();
-    }
-    
-     //Messenger.iniciarserver(); esto debe de ir cuando se selecciona el contacto para activar el servidor en el boton 
 }

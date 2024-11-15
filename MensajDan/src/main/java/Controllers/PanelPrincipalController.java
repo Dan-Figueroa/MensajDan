@@ -7,6 +7,7 @@ package Controllers;
 import Modelo.Contactos;
 import Modelo.Usuario;
 import ModeloDao.ContactoDao;
+import Server.Server;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import Utils.VerificarCampos;
@@ -49,6 +50,7 @@ public class PanelPrincipalController implements ActionListener{
                         System.out.println("Contacto seleccionado: " + nombreContacto);
                         panelUtil.mostrarPanel(principalV.jPanelMensajeria);
                         principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
+                        Server.iniciarserver();  
                         panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                     }
                 }
