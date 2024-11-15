@@ -77,6 +77,9 @@ public class TelefonoView extends javax.swing.JFrame {
         jButtonUser = new javax.swing.JButton();
         jButtonChatPrincipal = new javax.swing.JButton();
         jButtonCerrarSesion = new javax.swing.JButton();
+        jTextFieldNombreUser = new javax.swing.JTextField();
+        jTextFieldInformacionUser = new javax.swing.JTextField();
+        jLabelIPUser = new javax.swing.JLabel();
         jLabelMageUser = new javax.swing.JLabel();
         jPanelChat = new javax.swing.JPanel();
         jButtonCerrarChats = new javax.swing.JButton();
@@ -105,14 +108,14 @@ public class TelefonoView extends javax.swing.JFrame {
         jPanelLoggin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPasswordFieldLoggin.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordFieldLoggin.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jPasswordFieldLoggin.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         jPasswordFieldLoggin.setForeground(new java.awt.Color(51, 102, 255));
         jPasswordFieldLoggin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPasswordFieldLoggin.setBorder(null);
         jPanelLoggin.add(jPasswordFieldLoggin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 160, 30));
 
         jTextFieldIngresaIP.setBackground(new java.awt.Color(255, 255, 255));
-        jTextFieldIngresaIP.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jTextFieldIngresaIP.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         jTextFieldIngresaIP.setForeground(new java.awt.Color(51, 102, 255));
         jTextFieldIngresaIP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldIngresaIP.setBorder(null);
@@ -169,20 +172,21 @@ public class TelefonoView extends javax.swing.JFrame {
         jPaneNuevoUser.add(jButtonRegresarNuevoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 60, 50));
 
         jTextFieldNom.setBackground(new java.awt.Color(255, 255, 255));
-        jTextFieldNom.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jTextFieldNom.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         jTextFieldNom.setForeground(new java.awt.Color(51, 102, 255));
         jTextFieldNom.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldNom.setBorder(null);
         jPaneNuevoUser.add(jTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 160, 20));
 
         jTextFieldIPRegis.setBackground(new java.awt.Color(255, 255, 255));
-        jTextFieldIPRegis.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jTextFieldIPRegis.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         jTextFieldIPRegis.setForeground(new java.awt.Color(51, 102, 255));
         jTextFieldIPRegis.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldIPRegis.setBorder(null);
         jPaneNuevoUser.add(jTextFieldIPRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 160, 30));
 
         jPasswordFieldContraRegis.setBackground(new java.awt.Color(255, 255, 255));
+        jPasswordFieldContraRegis.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         jPasswordFieldContraRegis.setForeground(new java.awt.Color(51, 102, 255));
         jPasswordFieldContraRegis.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPasswordFieldContraRegis.setBorder(null);
@@ -196,6 +200,23 @@ public class TelefonoView extends javax.swing.JFrame {
         jPanelUser.add(jButtonUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 600, -1, 40));
         jPanelUser.add(jButtonChatPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 600, 80, 40));
         jPanelUser.add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 510, 110, 30));
+
+        jTextFieldNombreUser.setBackground(new java.awt.Color(219, 219, 219));
+        jTextFieldNombreUser.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
+        jTextFieldNombreUser.setForeground(new java.awt.Color(51, 102, 255));
+        jTextFieldNombreUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldNombreUser.setBorder(null);
+        jPanelUser.add(jTextFieldNombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 210, 30));
+
+        jTextFieldInformacionUser.setBackground(new java.awt.Color(219, 219, 219));
+        jTextFieldInformacionUser.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jTextFieldInformacionUser.setForeground(new java.awt.Color(51, 102, 255));
+        jTextFieldInformacionUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldInformacionUser.setBorder(null);
+        jPanelUser.add(jTextFieldInformacionUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 210, 30));
+
+        jLabelIPUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanelUser.add(jLabelIPUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 210, 20));
 
         jLabelMageUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usuario.png"))); // NOI18N
         jPanelUser.add(jLabelMageUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 670));
@@ -215,14 +236,14 @@ public class TelefonoView extends javax.swing.JFrame {
         jPanelContacto.add(jButtonRegresarContac, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 60, 50));
 
         jTextFieldNomContac.setBackground(new java.awt.Color(255, 255, 255));
-        jTextFieldNomContac.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jTextFieldNomContac.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         jTextFieldNomContac.setForeground(new java.awt.Color(51, 102, 255));
         jTextFieldNomContac.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldNomContac.setBorder(null);
         jPanelContacto.add(jTextFieldNomContac, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 160, -1));
 
         jTextFieldIPContac.setBackground(new java.awt.Color(255, 255, 255));
-        jTextFieldIPContac.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jTextFieldIPContac.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         jTextFieldIPContac.setForeground(new java.awt.Color(51, 102, 255));
         jTextFieldIPContac.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldIPContac.setBorder(null);
@@ -391,6 +412,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JButton jButtonUser;
     private javax.swing.JLabel jLabeImageMensajeria;
     private javax.swing.JLabel jLabeimagenNuevoUser;
+    public javax.swing.JLabel jLabelIPUser;
     private javax.swing.JLabel jLabelImageContacto;
     private javax.swing.JLabel jLabelImageLoggin;
     private javax.swing.JLabel jLabelImagePrincipal;
@@ -413,9 +435,11 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JTextField jTextFieldBuscarContacto;
     public javax.swing.JTextField jTextFieldIPContac;
     public javax.swing.JTextField jTextFieldIPRegis;
+    public javax.swing.JTextField jTextFieldInformacionUser;
     public javax.swing.JTextField jTextFieldIngresaIP;
     public javax.swing.JTextField jTextFieldMensaje;
     public javax.swing.JTextField jTextFieldNom;
     public javax.swing.JTextField jTextFieldNomContac;
+    public javax.swing.JTextField jTextFieldNombreUser;
     // End of variables declaration//GEN-END:variables
 }

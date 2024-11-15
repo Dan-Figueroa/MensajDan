@@ -6,7 +6,7 @@ package ModeloDao;
 
 import Conexion.Conexion;
 import Modelo.Usuario;
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,40 +17,41 @@ import java.sql.SQLException;
  */
 public class UsuarioDao {
     
-    Conexion conectar = Conexion.getInstance();
-    java.sql.Connection con;
-    PreparedStatement ps;
-    ResultSet rs;
-    
+    // Instancia única de la conexión a través del Singleton
+    private final Conexion conexion = Conexion.getInstance();
+    private Connection con;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
     public boolean ingresar(String ipUsuario, String contraseña) {
         String sql = "SELECT COUNT(*) FROM Usuario WHERE ipUsuario = ? AND contraseña = ?";
         boolean existe = false;
+
         try {
-            con = conectar.connectDatabase();  // Establecer la conexión con la base de datos
-            ps = con.prepareStatement(sql);  // Preparar la consulta SQL
-            ps.setString(1, ipUsuario);     // Establecer el valor para ipUsuario
-            ps.setString(2, contraseña);    // Establecer el valor para contraseña
-            rs = ps.executeQuery();         // Ejecutar la consulta
+            con = conexion.getConnection(); // Usar la conexión centralizada
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ipUsuario);
+            ps.setString(2, contraseña);
+            rs = ps.executeQuery();
 
             if (rs.next()) {
-                int count = rs.getInt(1);   // Obtener el resultado de la consulta
-                existe = count > 0;         // Si el contador es mayor que 0, el usuario existe
+                existe = rs.getInt(1) > 0; // Verificar si existe el usuario
             }
-        } catch (Exception e) {
-            e.printStackTrace();  // Manejo de errores
+        } catch (SQLException e) {
+            System.err.println("Error al verificar usuario: " + e.getMessage());
         } finally {
-            closeResources();     // Asegúrate de cerrar los recursos (conexión, ResultSet, etc.)
+            closeResources(); // Liberar recursos
         }
-        return existe;  // Devuelve true si el usuario existe, false si no
+
+        return existe;
     }
 
-    
     public boolean agregarUsuario(Usuario usuario) {
         String sql = "INSERT INTO Usuario(ipUsuario, nombre, contraseña, estado) VALUES(?, ?, ?, ?)";
         boolean resultado = false;
 
         try {
-            con = conectar.connectDatabase();  // Conexión a la base de datos
+            con = conexion.getConnection(); // Obtener conexión
             ps = con.prepareStatement(sql);
             ps.setString(1, usuario.getIpUsuario());
             ps.setString(2, usuario.getNombre());
@@ -58,24 +59,56 @@ public class UsuarioDao {
             ps.setString(4, usuario.getEstado());
 
             int filasAfectadas = ps.executeUpdate();
-            resultado = filasAfectadas > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            resultado = filasAfectadas > 0; // Verificar si se insertó correctamente
+        } catch (SQLException e) {
+            System.err.println("Error al agregar usuario: " + e.getMessage());
         } finally {
-            closeResources(); // Cierra los recursos utilizados
+            closeResources(); // Cerrar recursos
         }
+
         return resultado;
     }
+    
+    public Usuario obtenerUsuarioPorIp(String ipUsuario) {
+        String sql = "SELECT * FROM Usuario WHERE ipUsuario = ?";
+        Usuario usuario = null; // Objeto usuario que será retornado
 
-    // Método para cerrar recursos
+        try {
+            con = conexion.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ipUsuario);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Crear el objeto Usuario y asignar los valores desde la consulta
+                usuario = new Usuario();
+                usuario.setIpUsuario(rs.getString("ipUsuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setInformacion(rs.getString("informacion"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener información del usuario: " + e.getMessage());
+        } finally {
+            closeResources(); // Liberar recursos
+        }
+        return usuario; // Retornar el objeto Usuario o null si no se encontró
+    }
+
+
+    /**
+     * Método privado para cerrar los recursos de base de datos.
+     */
     private void closeResources() {
         try {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            // No cierres la conexión aquí, ya que queremos reutilizarla
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            // No cerramos la conexión aquí para permitir reutilización por el Singleton.
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al cerrar recursos: " + e.getMessage());
         }
     }
 }

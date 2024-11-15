@@ -26,7 +26,7 @@ public class LimpiarCampos {
         }
     }
     
-    public void limpiarTextAreas(JTextArea... campos) {
+    public void limpiarTextAreas(JTextArea...campos) {
         for (JTextArea campo : campos) {
             campo.setText("");
         }

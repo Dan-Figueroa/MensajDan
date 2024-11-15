@@ -80,6 +80,7 @@ public class PanelPrincipalController implements ActionListener{
         Mostrar(); // Carga los contactos o la información del usuario si es necesario
     }
     
+    
     public void BuscarContactos(){
         String nombre = principalV.jTextFieldBuscarContacto.getText();
         if (nombre != null && !nombre.isEmpty()) {
