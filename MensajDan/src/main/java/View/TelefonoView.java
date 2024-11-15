@@ -5,6 +5,7 @@
 package View;
 
 import Controllers.PanelLogginController;
+import Controllers.PanelNuevoUserController;
 import Controllers.PanelPrincipalController;
 import Modelo.Usuario;
 
@@ -19,11 +20,13 @@ public class TelefonoView extends javax.swing.JFrame {
      */
     PanelLogginController logginC;
     public PanelPrincipalController pricipalC;
+    PanelNuevoUserController nuevoUserC;
     
     public TelefonoView() {
         initComponents();
         logginC = new PanelLogginController(this);
         pricipalC = new PanelPrincipalController(this);
+        nuevoUserC = new PanelNuevoUserController(this);
         
         
 //        Usuario usuario = logginC.validarInicioSesion();
@@ -58,6 +61,11 @@ public class TelefonoView extends javax.swing.JFrame {
         jTableContac = new javax.swing.JTable();
         jLabelImagePrincipal = new javax.swing.JLabel();
         jPaneNuevoUser = new javax.swing.JPanel();
+        jButtonCrearUser = new javax.swing.JButton();
+        jButtonRegresarNuevoUser = new javax.swing.JButton();
+        jTextFieldNom = new javax.swing.JTextField();
+        jTextFieldIPRegis = new javax.swing.JTextField();
+        jPasswordFieldContraRegis = new javax.swing.JPasswordField();
         jLabeimagenNuevoUser = new javax.swing.JLabel();
         jPanelUser = new javax.swing.JPanel();
         jLabelMageUser = new javax.swing.JLabel();
@@ -73,13 +81,15 @@ public class TelefonoView extends javax.swing.JFrame {
         jPanelLoggin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPasswordFieldLoggin.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordFieldLoggin.setForeground(new java.awt.Color(51, 51, 255));
+        jPasswordFieldLoggin.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jPasswordFieldLoggin.setForeground(new java.awt.Color(51, 102, 255));
         jPasswordFieldLoggin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPasswordFieldLoggin.setBorder(null);
         jPanelLoggin.add(jPasswordFieldLoggin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 160, 30));
 
         jTextFieldIngresaIP.setBackground(new java.awt.Color(255, 255, 255));
-        jTextFieldIngresaIP.setForeground(new java.awt.Color(51, 51, 255));
+        jTextFieldIngresaIP.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jTextFieldIngresaIP.setForeground(new java.awt.Color(51, 102, 255));
         jTextFieldIngresaIP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldIngresaIP.setBorder(null);
         jPanelLoggin.add(jTextFieldIngresaIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 253, 160, 30));
@@ -113,6 +123,7 @@ public class TelefonoView extends javax.swing.JFrame {
         jTableContac.setAutoscrolls(false);
         jTableContac.setGridColor(new java.awt.Color(255, 255, 255));
         jTableContac.setRowHeight(60);
+        jTableContac.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jTableContac.setSelectionForeground(new java.awt.Color(102, 102, 102));
         jScrollPane1.setViewportView(jTableContac);
 
@@ -123,6 +134,28 @@ public class TelefonoView extends javax.swing.JFrame {
         jPanelPrincipal.add(jLabelImagePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 670));
 
         jPaneNuevoUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPaneNuevoUser.add(jButtonCrearUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, 90, 30));
+        jPaneNuevoUser.add(jButtonRegresarNuevoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 60, 50));
+
+        jTextFieldNom.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldNom.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jTextFieldNom.setForeground(new java.awt.Color(51, 102, 255));
+        jTextFieldNom.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldNom.setBorder(null);
+        jPaneNuevoUser.add(jTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 160, 20));
+
+        jTextFieldIPRegis.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldIPRegis.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jTextFieldIPRegis.setForeground(new java.awt.Color(51, 102, 255));
+        jTextFieldIPRegis.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldIPRegis.setBorder(null);
+        jPaneNuevoUser.add(jTextFieldIPRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 160, 30));
+
+        jPasswordFieldContraRegis.setBackground(new java.awt.Color(255, 255, 255));
+        jPasswordFieldContraRegis.setForeground(new java.awt.Color(51, 102, 255));
+        jPasswordFieldContraRegis.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPasswordFieldContraRegis.setBorder(null);
+        jPaneNuevoUser.add(jPasswordFieldContraRegis, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 150, 20));
 
         jLabeimagenNuevoUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/NuevoUsuario.png"))); // NOI18N
         jLabeimagenNuevoUser.setText("jLabel1");
@@ -261,9 +294,11 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JButton jButtonAgregarContacto;
     public javax.swing.JButton jButtonBuscarContacto;
     public javax.swing.JButton jButtonChats;
+    public javax.swing.JButton jButtonCrearUser;
     public javax.swing.JButton jButtonIngresarLoggin;
     public javax.swing.JButton jButtonPerfil;
     public javax.swing.JButton jButtonRegistrarseLoggin;
+    public javax.swing.JButton jButtonRegresarNuevoUser;
     private javax.swing.JLabel jLabeImageMensajeria;
     private javax.swing.JLabel jLabeimagenNuevoUser;
     private javax.swing.JLabel jLabelImageContacto;
@@ -278,9 +313,12 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JPanel jPanelMensajeria;
     public javax.swing.JPanel jPanelPrincipal;
     public javax.swing.JPanel jPanelUser;
+    public javax.swing.JPasswordField jPasswordFieldContraRegis;
     public javax.swing.JPasswordField jPasswordFieldLoggin;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTableContac;
+    public javax.swing.JTextField jTextFieldIPRegis;
     public javax.swing.JTextField jTextFieldIngresaIP;
+    public javax.swing.JTextField jTextFieldNom;
     // End of variables declaration//GEN-END:variables
 }
