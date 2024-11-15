@@ -63,3 +63,6 @@ FROM
 JOIN 
     Usuario u ON c.ipUsCont = u.ipUsuario;
 -------------------------------------------------------------------
+ALTER TABLE Usuario
+ADD COLUMN informacion TEXT DEFAULT '!Estoy utilizando MensaDan¡';
+
