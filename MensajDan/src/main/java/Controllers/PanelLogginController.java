@@ -9,6 +9,7 @@ import ModeloDao.UsuarioDao;
 //import Servicios.NuevoUserServicio;
 import Servicios.logginServicio;
 import Utils.BotonesInvisibles;
+import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
 import Utils.VerificarCampos;
 import View.TelefonoView;
@@ -29,6 +30,7 @@ public class PanelLogginController implements ActionListener{
     private logginServicio service;
     private Usuario usuario;
     private UsuarioDao useDao;
+    private LimpiarCampos limpiaCampo;
 
     public PanelLogginController(TelefonoView logginV) {
         this.logginV = logginV;
@@ -36,6 +38,7 @@ public class PanelLogginController implements ActionListener{
         this.panelUtil = new PanelesVisibles();
         this.service = new logginServicio();
         this.useDao = new UsuarioDao();
+        this.limpiaCampo = new LimpiarCampos();
         btn.hacerBotonesInvisibles(logginV.jButtonIngresarLoggin, logginV.jButtonRegistrarseLoggin);
         this.logginV.jButtonIngresarLoggin.addActionListener(this);
         this.logginV.jButtonRegistrarseLoggin.addActionListener(this);
@@ -62,11 +65,16 @@ public class PanelLogginController implements ActionListener{
             System.out.println("Inicio de sesión exitoso. IP del usuario: " + usuarioAutenticado.getIpUsuario());
             panelUtil.mostrarPanel(logginV.jPanelPrincipal);
             panelUtil.cerrarPanel(logginV.jPanelLoggin);
+            limpiardatos();
         } else {
             JOptionPane.showMessageDialog(logginV, "Inicio de sesión fallido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
+    public void limpiardatos(){
+        limpiaCampo.limpiarTextFields(logginV.jTextFieldIngresaIP);
+        limpiaCampo.limpiarPasswordFields(logginV.jPasswordFieldLoggin);
+    }
 
     
     public Usuario validarInicioSesion() {
