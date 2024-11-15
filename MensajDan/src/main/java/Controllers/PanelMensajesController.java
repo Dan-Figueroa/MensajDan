@@ -7,6 +7,7 @@ package Controllers;
 import Modelo.Conector;
 import Server.Server;
 import Utils.BotonesInvisibles;
+import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
 import java.awt.Color;
@@ -25,6 +26,7 @@ public class PanelMensajesController implements ActionListener{
 
     TelefonoView mensaV;
     private PanelesVisibles panelUtil;
+    private LimpiarCampos limpiaCampo;
     private BotonesInvisibles btn;
     public static Conector conector;
     DateFormat  hora = new SimpleDateFormat("HH:mm:ss");
@@ -34,6 +36,7 @@ public class PanelMensajesController implements ActionListener{
         this.mensaV = mensaV;
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
+        this.limpiaCampo = new LimpiarCampos();
         btn.hacerBotonesInvisibles(mensaV.jButtonRegresarMen,mensaV.jButtonEnviar );
         this.mensaV.jButtonRegresarMen.addActionListener(this);
         this.mensaV.jButtonEnviar.addActionListener(this);
@@ -54,5 +57,10 @@ public class PanelMensajesController implements ActionListener{
             this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
             mensaV.jTextFieldMensaje.setText("");
             }
+    }
+    
+    public void limpiardatos(){
+        limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);
+        limpiaCampo.limpiarTextAreas(mensaV.jTextArea1);
     }
 }
