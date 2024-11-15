@@ -84,7 +84,7 @@ public class PanelLogginController implements ActionListener{
             usuario.setContraseña(new String(logginV.jPasswordFieldLoggin.getPassword()));
             // Verifica si las credenciales son correctas
             if (useDao.ingresar(usuario.getIpUsuario(), usuario.getContraseña())) {
-                MostrarPerfil(useDao.obtenerUsuarioPorIp(usuario.getIpUsuario()));
+                //MostrarPerfil(useDao.obtenerUsuarioPorIp(usuario.getIpUsuario()));
                 panelUtil.mostrarPanel(logginV.jPanelPrincipal);
                 panelUtil.cerrarPanel(logginV.jPanelLoggin);
                 return usuario; // Retorna el usuario si se autentica correctamente
@@ -95,11 +95,13 @@ public class PanelLogginController implements ActionListener{
         return null; // Retorna null si la autenticación falla
     }
     
-    public void MostrarPerfil(Usuario user){
-        logginV.jTextFieldNombreUser.setText(user.getNombre());
-        logginV.jLabelIPUser.setText(user.getIpUsuario());
-        logginV.jTextFieldInformacionUser.setText(user.getInformacion());
-    }
+//    public void MostrarPerfil(Usuario user){
+//        logginV.jTextFieldNombreUser.setText(user.getNombre());
+//        logginV.jTextFieldNombreUser.setEditable(false);
+//        logginV.jLabelIPUser.setText(user.getIpUsuario());
+//        logginV.jTextFieldInformacionUser.setText(user.getInformacion());
+//        logginV.jTextFieldInformacionUser.setEditable(false);
+//    }
 
     
 }

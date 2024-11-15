@@ -18,7 +18,11 @@ import java.util.ArrayList;
 public class ContactoDao {
     
     // Instancia única de la conexión a través del Singleton
-    private final Conexion conexion = Conexion.getInstance();
+    private final Conexion conexion = Conexion.getInstance();    // Instancia única de la conexión a través del Singleton
+    private Connection con;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    
 
     /**
      * Agregar un nuevo contacto a la base de datos.
@@ -109,5 +113,23 @@ public class ContactoDao {
         }
 
         return contactos;
+    }
+    
+    
+    /**
+     * Método privado para cerrar los recursos de base de datos.
+     */
+    private void closeResources() {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            // No cerramos la conexión aquí para permitir reutilización por el Singleton.
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar recursos: " + e.getMessage());
+        }
     }
 }

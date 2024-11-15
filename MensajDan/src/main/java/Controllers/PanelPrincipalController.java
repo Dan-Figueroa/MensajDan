@@ -7,6 +7,7 @@ package Controllers;
 import Modelo.Contactos;
 import Modelo.Usuario;
 import ModeloDao.ContactoDao;
+import ModeloDao.UsuarioDao;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import Utils.VerificarCampos;
@@ -29,12 +30,14 @@ public class PanelPrincipalController implements ActionListener{
     TelefonoView principalV;
     private BotonesInvisibles btn;
     private PanelesVisibles panelUtil;
+    private UsuarioDao useDao;
     private String ip;
 
     public PanelPrincipalController(TelefonoView principalV) {
         this.principalV = principalV;
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
+        this.useDao = new UsuarioDao();
         btn.hacerBotonesInvisibles(principalV.jButtonAgregarContacto, principalV.jButtonBuscarContacto, principalV.jButtonPerfil, principalV.jButtonChats);
         this.principalV.jButtonAgregarContacto.addActionListener(this);
         this.principalV.jButtonBuscarContacto.addActionListener(this);
@@ -68,9 +71,10 @@ public class PanelPrincipalController implements ActionListener{
             BuscarContactos();
         }else if(this.principalV.jButtonPerfil == ae.getSource()){
             panelUtil.mostrarPanel(principalV.jPanelUser);
+            PasarId();
             panelUtil.cerrarPanel(principalV.jPanelPrincipal);
         }else if(this.principalV.jButtonChats == ae.getSource()){
-
+            PasarId();
         }
     }
     
@@ -134,6 +138,18 @@ public class PanelPrincipalController implements ActionListener{
          principalV.jTableContac.repaint();
      }
  }
+    
+    public void PasarId(){
+        MostrarPerfil(useDao.obtenerUsuarioPorIp(ip));
+    }
+    
+    public void MostrarPerfil(Usuario user){
+        principalV.jTextFieldNombreUser.setText(user.getNombre());
+        principalV.jTextFieldNombreUser.setEditable(false);
+        principalV.jLabelIPUser.setText(user.getIpUsuario());
+        principalV.jTextFieldInformacionUser.setText(user.getInformacion());
+        principalV.jTextFieldInformacionUser.setEditable(false);
+    }
 
 
 

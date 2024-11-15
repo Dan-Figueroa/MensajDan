@@ -80,6 +80,7 @@ public class TelefonoView extends javax.swing.JFrame {
         jTextFieldNombreUser = new javax.swing.JTextField();
         jTextFieldInformacionUser = new javax.swing.JTextField();
         jLabelIPUser = new javax.swing.JLabel();
+        jButtonHabilitarJtext = new javax.swing.JButton();
         jLabelMageUser = new javax.swing.JLabel();
         jPanelChat = new javax.swing.JPanel();
         jButtonCerrarChats = new javax.swing.JButton();
@@ -217,6 +218,7 @@ public class TelefonoView extends javax.swing.JFrame {
 
         jLabelIPUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanelUser.add(jLabelIPUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 210, 20));
+        jPanelUser.add(jButtonHabilitarJtext, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 40, 30));
 
         jLabelMageUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usuario.png"))); // NOI18N
         jPanelUser.add(jLabelMageUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 670));
@@ -401,6 +403,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JButton jButtonCrearContac;
     public javax.swing.JButton jButtonCrearUser;
     public javax.swing.JButton jButtonEnviar;
+    public javax.swing.JButton jButtonHabilitarJtext;
     public javax.swing.JButton jButtonIngresarLoggin;
     public javax.swing.JButton jButtonNuevoContacto;
     public javax.swing.JButton jButtonNuevoGrupo;
