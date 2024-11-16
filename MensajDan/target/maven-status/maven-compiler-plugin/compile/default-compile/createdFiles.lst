@@ -20,6 +20,7 @@ View/imagenes$1.class
 Controllers/PanelLogginController.class
 Controllers/PanelMensajesController.class
 Servicios/logginServicio.class
+Controllers/PanelChatController$1.class
 Controllers/PanelPrincipalController$2.class
 Modelo/Conversacion.class
 Servicios/ContactoServicio.class

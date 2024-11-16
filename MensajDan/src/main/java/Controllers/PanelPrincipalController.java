@@ -6,19 +6,15 @@ package Controllers;
 
 import Modelo.Contactos;
 import Modelo.Usuario;
-import ModeloDao.ContactoDao;
-import java.util.ArrayList;
-import javax.swing.JTable;
+import ModeloDao.ContactoDao;   
 import Server.Server;
 import ModeloDao.UsuarioDao;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
-import Utils.VerificarCampos;
 import View.TelefonoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -159,7 +155,6 @@ public class PanelPrincipalController implements ActionListener{
     public String ObtenerIpContacto(String nom){
         ContactoDao contactoDao = new ContactoDao();
         String ipContacto = contactoDao.obtenerIpContactoPorNombre(nom, ip);
-
         if (ipContacto != null) {
             System.out.println("La IP del contacto es: " + ipContacto);
         } else {

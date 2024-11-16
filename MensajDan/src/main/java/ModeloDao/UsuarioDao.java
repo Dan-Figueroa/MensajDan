@@ -93,6 +93,29 @@ public class UsuarioDao {
         }
         return usuario; // Retornar el objeto Usuario o null si no se encontró
     }
+    
+    public boolean actualizarNombreEInformacion(String ipUsuario, String nuevoNombre, String nuevaInformacion) {
+        String sql = "UPDATE Usuario SET nombre = ?, informacion = ? WHERE ipUsuario = ?";
+        boolean resultado = false;
+
+        try {
+            con = conexion.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nuevoNombre);         // Nuevo nombre del usuario
+            ps.setString(2, nuevaInformacion);    // Nueva información del usuario
+            ps.setString(3, ipUsuario);           // IP del usuario a actualizar
+
+            int filasAfectadas = ps.executeUpdate();
+            resultado = filasAfectadas > 0; // Verificar si se actualizó correctamente
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el usuario: " + e.getMessage());
+        } finally {
+            closeResources(); // Liberar recursos
+        }
+
+        return resultado; // Retorna true si se actualizó con éxito
+    }
+
 
 
     /**
