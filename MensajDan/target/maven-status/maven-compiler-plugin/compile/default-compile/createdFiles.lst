@@ -1,4 +1,5 @@
 ModeloDao/UsuarioDao.class
+Server/ServidorMensajes.class
 Controllers/PanelChatController.class
 Utils/LimpiarCampos.class
 Utils/VerificarCampos.class
@@ -18,10 +19,10 @@ View/TelefonoView.class
 View/imagenes$1.class
 Controllers/PanelLogginController.class
 Controllers/PanelMensajesController.class
+Server/ClienteMensajes.class
 Servicios/logginServicio.class
 Controllers/PanelChatController$1.class
 Modelo/Conversacion.class
-Controllers/PanelPrincipalController$2.class
 Servicios/ContactoServicio.class
 Modelo/Contactos.class
 View/imagenes.class

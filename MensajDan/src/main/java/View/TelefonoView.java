@@ -32,7 +32,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public TelefonoView() {
         initComponents();
         logginC = new PanelLogginController(this);
-        pricipalC = new PanelPrincipalController(this);
+        pricipalC = new PanelPrincipalController(this,true);
         nuevoUserC = new PanelNuevoUserController(this);
         UserC = new PanelUserController(this);
         ChatContaC = new PanelChatController(this);

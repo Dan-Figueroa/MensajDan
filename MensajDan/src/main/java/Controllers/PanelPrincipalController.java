@@ -8,6 +8,8 @@ import Modelo.Contactos;
 import Modelo.Usuario;
 import ModeloDao.ContactoDao;   
 import ModeloDao.UsuarioDao;
+import Server.ClienteMensajes;
+import Server.ServidorMensajes;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
@@ -29,9 +31,14 @@ public class PanelPrincipalController implements ActionListener{
     private PanelesVisibles panelUtil;
     private UsuarioDao useDao;
     private String ip;
+    private ServidorMensajes servidor;
+    private ClienteMensajes cliente;
+    private boolean esServidor = false;
+    
 
-    public PanelPrincipalController(TelefonoView principalV) {
+    public PanelPrincipalController(TelefonoView principalV,boolean esServidor) {
         this.principalV = principalV;
+        this.esServidor = esServidor;
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
         this.useDao = new UsuarioDao();
@@ -40,23 +47,26 @@ public class PanelPrincipalController implements ActionListener{
         this.principalV.jButtonBuscarContacto.addActionListener(this);
         this.principalV.jButtonPerfil.addActionListener(this);
         this.principalV.jButtonChats.addActionListener(this);
-        principalV.jTableContac.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) { // Solo actúa cuando la selección finaliza
+        principalV.jTableContac.getSelectionModel().addListSelectionListener(e -> {
+                if (!e.getValueIsAdjusting()) {
                     int selectedRow = principalV.jTableContac.getSelectedRow();
                     if (selectedRow != -1) {
                         String nombreContacto = principalV.jTableContac.getValueAt(selectedRow, 0).toString();
-                        System.out.println("Contacto seleccionado: " + nombreContacto);
+                        String ipContacto = ObtenerIpContacto(nombreContacto);
+                        if (esServidor) { // Decide si este usuario es el servidor
+                            servidor = new ServidorMensajes(12345); // Puerto arbitrario
+                            servidor.start();
+                        } else {
+                            cliente = new ClienteMensajes(ipContacto, 12345);
+                            cliente.escucharMensajes();
+                        }
+
                         panelUtil.mostrarPanel(principalV.jPanelMensajeria);
                         principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
-                        String ipContacto = ObtenerIpContacto( nombreContacto);
-                        principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);//prueba para visualizar el ip del contacto 
                         panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                     }
                 }
-            }
-        });
+            });
         
     }
 
@@ -93,8 +103,6 @@ public class PanelPrincipalController implements ActionListener{
             Mostrar();
         }
     }
-
-    
     
     public JTable MostrarContactos(ArrayList<Contactos> contacto) {
         DefaultTableModel modeloTabla = new DefaultTableModel() {
