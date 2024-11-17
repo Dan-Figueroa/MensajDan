@@ -3,7 +3,6 @@
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/ModeloDao/ContactoDao.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Main/MensajDan.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Controllers/PanelMensajesController.java
-/home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Modelo/Conector.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Conexion/Conexion.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Controllers/PanelContactoController.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Controllers/PanelLogginController.java
@@ -17,9 +16,10 @@
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Utils/VerificarCampos.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Servicios/NuevoUserServicio.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Controllers/PanelChatController.java
-/home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Server/Server.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Controllers/PanelNuevoUserController.java
+/home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Server/ClienteMensajes.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Modelo/Contactos.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Utils/LimpiarCampos.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Utils/BotonesInvisibles.java
+/home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Server/ServidorMensajes.java
 /home/david_alcazar/Documentos/JavaProyectos/Mensajeria/MensajDan/src/main/java/Modelo/Conversacion.java

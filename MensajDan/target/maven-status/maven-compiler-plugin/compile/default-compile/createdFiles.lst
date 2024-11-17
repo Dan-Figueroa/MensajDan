@@ -1,4 +1,5 @@
 ModeloDao/UsuarioDao.class
+Server/ServidorMensajes.class
 Controllers/PanelChatController.class
 Utils/LimpiarCampos.class
 Main/MensajDan.class
@@ -8,7 +9,6 @@ Controllers/PanelNuevoUserController.class
 Controllers/PanelPrincipalController.class
 Servicios/NuevoUserServicio.class
 Utils/BotonesInvisibles.class
-Modelo/Conector.class
 Conexion/Conexion.class
 Utils/PanelesVisibles.class
 Modelo/Usuario.class
@@ -19,12 +19,11 @@ View/TelefonoView.class
 View/imagenes$1.class
 Controllers/PanelLogginController.class
 Controllers/PanelMensajesController.class
+Server/ClienteMensajes.class
 Servicios/logginServicio.class
 Controllers/PanelChatController$1.class
-Controllers/PanelPrincipalController$2.class
 Modelo/Conversacion.class
 Servicios/ContactoServicio.class
 Modelo/Contactos.class
 View/imagenes.class
-Server/Server.class
 Controllers/PanelContactoController.class

@@ -3,14 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controllers;
-
-import Modelo.Conector;
-import Server.Server;
+import Server.ClienteMensajes;
+import Server.ServidorMensajes;
 import Utils.BotonesInvisibles;
 import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -25,10 +23,11 @@ import java.util.Date;
 public class PanelMensajesController implements ActionListener{
 
     TelefonoView mensaV;
+    private ServidorMensajes servidor;
+    private ClienteMensajes cliente;
     private PanelesVisibles panelUtil;
     private LimpiarCampos limpiaCampo;
     private BotonesInvisibles btn;
-    public static Conector conector;
     DateFormat  hora = new SimpleDateFormat("HH:mm:ss");
     Date horaactual= new Date();
 
@@ -44,20 +43,29 @@ public class PanelMensajesController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(this.mensaV.jButtonRegresarMen == ae.getSource()){
-            panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
-            panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
-            Server.cerrarserver();
-        }else if(this.mensaV.jButtonEnviar == ae.getSource()){
-            conector.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
-            this.mensaV.jTextFieldMensaje.getText());
-            this.mensaV.jTextArea1.setForeground(Color.black);
-            this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
-            this.mensaV.jLabelNombreContac.getText()+" : \n"+
-            this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
-            mensaV.jTextFieldMensaje.setText("");
-            }
+    if (this.mensaV.jButtonRegresarMen == ae.getSource()) {
+        panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
+        panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
+        if (servidor != null) {
+            servidor.cerrarServidor();
+            servidor = null; // Limpieza de referencia
+        }
+        if (cliente != null) {
+            cliente.cerrarCliente();
+            cliente = null; // Limpieza de referencia
+        }
+        System.out.println("cerrado servidor");
+    } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
+        String mensaje = mensaV.jTextFieldMensaje.getText();
+        if (servidor != null) {
+            servidor.enviarMensaje(mensaje);
+        } else if (cliente != null) {
+            cliente.enviarMensaje(mensaje);
+        }
+        mensaV.jTextArea1.append("Tú: " + mensaje + "\n");
+        mensaV.jTextFieldMensaje.setText("");
     }
+}
     
     public void limpiardatos(){
         limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);
