@@ -511,7 +511,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="70" y="230" width="210" height="30"/>
+              <AbsoluteConstraints x="70" y="230" width="210" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -536,7 +536,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="70" y="410" width="210" height="30"/>
+              <AbsoluteConstraints x="70" y="410" width="210" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -574,7 +574,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonActualizarUser">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -591,7 +590,7 @@
         <Component class="javax.swing.JLabel" name="jLabelMageUser">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/Usuario.png"/>
+              <Image iconType="3" name="/Imagenes/usuario.jpeg"/>
             </Property>
           </Properties>
           <Constraints>
@@ -617,7 +616,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="250" y="60" width="50" height="40"/>
+              <AbsoluteConstraints x="30" y="60" width="50" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -637,17 +636,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="110" y="203" width="130" height="30"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonActualizarContacto">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="110" y="250" width="160" height="20"/>
+              <AbsoluteConstraints x="120" y="220" width="130" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -657,7 +646,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="110" y="290" width="110" height="20"/>
+              <AbsoluteConstraints x="130" y="270" width="110" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -682,7 +671,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="133" width="170" height="30"/>
+              <AbsoluteConstraints x="80" y="133" width="170" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -737,7 +726,7 @@
         <Component class="javax.swing.JLabel" name="jLabelImganChat">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/Chat.png"/>
+              <Image iconType="3" name="/Imagenes/menucontacto.jpeg"/>
             </Property>
           </Properties>
           <Constraints>
