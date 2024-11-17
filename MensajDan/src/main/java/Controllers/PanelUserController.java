@@ -28,7 +28,7 @@ public class PanelUserController implements ActionListener{
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
         this.service = new NuevoUserServicio();
-        btn.hacerBotonesInvisibles(userV.jButtonCerrarSesion,userV.jButtonChatPrincipal, userV.jButtonUser, userV.jButtonHabilitarJtext);
+        btn.hacerBotonesInvisibles(userV.jButtonCerrarSesion,userV.jButtonChatPrincipal, userV.jButtonUser, userV.jButtonHabilitarJtext, userV.jButtonActualizarUser);
         this.userV.jButtonActualizarUser.addActionListener(this);
         this.userV.jButtonCerrarSesion.addActionListener(this);
         this.userV.jButtonChatPrincipal.addActionListener(this);

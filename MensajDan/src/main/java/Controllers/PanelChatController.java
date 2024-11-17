@@ -30,11 +30,10 @@ public class PanelChatController implements ActionListener{
         this.chatV = chatV;
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
-        btn.hacerBotonesInvisibles(chatV.jButtonCerrarChats, chatV.jButtonBuscar, chatV.jButtonNuevoContacto, chatV.jButtonActualizarContacto, chatV.jButtonNuevoGrupo);
+        btn.hacerBotonesInvisibles(chatV.jButtonCerrarChats, chatV.jButtonBuscar, chatV.jButtonNuevoContacto, chatV.jButtonNuevoGrupo);
         this.chatV.jButtonCerrarChats.addActionListener(this);
         this.chatV.jButtonBuscar.addActionListener(this);
         this.chatV.jButtonNuevoContacto.addActionListener(this);
-        this.chatV.jButtonActualizarContacto.addActionListener(this);
         this.chatV.jButtonNuevoGrupo.addActionListener(this);
     }
     
