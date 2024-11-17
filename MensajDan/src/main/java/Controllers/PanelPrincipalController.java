@@ -7,7 +7,6 @@ package Controllers;
 import Modelo.Contactos;
 import Modelo.Usuario;
 import ModeloDao.ContactoDao;   
-import Server.Server;
 import ModeloDao.UsuarioDao;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
@@ -52,8 +51,7 @@ public class PanelPrincipalController implements ActionListener{
                         panelUtil.mostrarPanel(principalV.jPanelMensajeria);
                         principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
                         String ipContacto = ObtenerIpContacto( nombreContacto);
-                        principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);//prueba para visualizar el ip del contacto
-                        Server.iniciarserver();  
+                        principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);//prueba para visualizar el ip del contacto 
                         panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                     }
                 }

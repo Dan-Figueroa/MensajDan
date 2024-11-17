@@ -8,7 +8,6 @@ Controllers/PanelNuevoUserController.class
 Controllers/PanelPrincipalController.class
 Servicios/NuevoUserServicio.class
 Utils/BotonesInvisibles.class
-Modelo/Conector.class
 Conexion/Conexion.class
 Utils/PanelesVisibles.class
 Modelo/Usuario.class
@@ -26,5 +25,4 @@ Controllers/PanelPrincipalController$2.class
 Servicios/ContactoServicio.class
 Modelo/Contactos.class
 View/imagenes.class
-Server/Server.class
 Controllers/PanelContactoController.class
