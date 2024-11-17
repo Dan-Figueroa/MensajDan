@@ -39,4 +39,15 @@ public class NuevoUserServicio {
         return true; // Retorna true solo si todas las validaciones se cumplen
     }
     
+    public boolean Validacion(JTextField nombre,JTextField informacion){
+        if(!verificar.verificarCampos(nombre)){
+            JOptionPane.showMessageDialog(null, "No deje vacio el nombre");
+            return false;
+        }if(!verificar.verificarCampos(informacion)){
+            JOptionPane.showMessageDialog(null, "No deje vacio su informacion");
+            return false;
+        }
+        return true;
+    }
+    
 }

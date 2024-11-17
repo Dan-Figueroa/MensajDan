@@ -16,7 +16,6 @@ import View.TelefonoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -61,6 +60,7 @@ public class PanelLogginController implements ActionListener{
         Usuario usuarioAutenticado = validarInicioSesion();
         if (usuarioAutenticado != null) {
             logginV.pricipalC.setUsuario(usuarioAutenticado.getIpUsuario());
+            logginV.ChatContaC.setUsuario(usuarioAutenticado.getIpUsuario());
             logginV.contactoC.setUsuario(usuarioAutenticado.getIpUsuario());
             System.out.println("Inicio de sesión exitoso. IP del usuario: " + usuarioAutenticado.getIpUsuario());
             panelUtil.mostrarPanel(logginV.jPanelPrincipal);
@@ -95,13 +95,5 @@ public class PanelLogginController implements ActionListener{
         return null; // Retorna null si la autenticación falla
     }
     
-//    public void MostrarPerfil(Usuario user){
-//        logginV.jTextFieldNombreUser.setText(user.getNombre());
-//        logginV.jTextFieldNombreUser.setEditable(false);
-//        logginV.jLabelIPUser.setText(user.getIpUsuario());
-//        logginV.jTextFieldInformacionUser.setText(user.getInformacion());
-//        logginV.jTextFieldInformacionUser.setEditable(false);
-//    }
-
     
 }
