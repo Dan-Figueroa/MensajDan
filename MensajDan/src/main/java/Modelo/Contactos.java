@@ -13,6 +13,7 @@ public class Contactos {
     private String nombreCon; // Nombre del contacto
     private String ipUsuario; // IP del usuario que está agregando el contacto
     private String ipUsCont;  // IP del contacto agregado
+    private String InformacionContacto;
 
     public Contactos() {
     }
@@ -27,6 +28,14 @@ public class Contactos {
         this.nombreCon = nombreCon;
         this.ipUsuario = ipUsuario;
         this.ipUsCont = ipUsCont;
+    }
+
+    public String getSetInformacionContacto() {
+        return InformacionContacto;
+    }
+
+    public void setSetInformacionContacto(String InformacionContacto) {
+        this.InformacionContacto = InformacionContacto;
     }
 
     // Getters y setters

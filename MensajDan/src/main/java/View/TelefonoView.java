@@ -11,6 +11,7 @@ import Controllers.PanelMensajesController;
 import Controllers.PanelNuevoUserController;
 import Controllers.PanelPrincipalController;
 import Controllers.PanelUserController;
+import Controllers.PanelnfoContactoController;
 
 /**
  *
@@ -28,6 +29,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public PanelChatController ChatContaC;
     public PanelContactoController contactoC;
     public PanelMensajesController mensajeC;
+    PanelnfoContactoController infoContacC;
     
     public TelefonoView() {
         initComponents();
@@ -38,6 +40,7 @@ public class TelefonoView extends javax.swing.JFrame {
         ChatContaC = new PanelChatController(this);
         contactoC = new PanelContactoController(this);
         mensajeC = new PanelMensajesController(this);
+        infoContacC = new PanelnfoContactoController(this);
         
     }
 
@@ -106,6 +109,13 @@ public class TelefonoView extends javax.swing.JFrame {
         jLabelNombreContac = new javax.swing.JLabel();
         jLabelPruebaIPconta = new javax.swing.JLabel();
         jLabeImageMensajeria = new javax.swing.JLabel();
+        jPanelnfoContacto = new javax.swing.JPanel();
+        jTextFieldNameContacto = new javax.swing.JTextField();
+        jLabelIPContacto = new javax.swing.JLabel();
+        jLabelInformacionContacto = new javax.swing.JLabel();
+        jButtonActualizarContacto = new javax.swing.JButton();
+        jButtonRegre = new javax.swing.JButton();
+        jLabeimageInfoConcto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -318,6 +328,37 @@ public class TelefonoView extends javax.swing.JFrame {
         jLabeImageMensajeria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/chat.jpeg"))); // NOI18N
         jPanelMensajeria.add(jLabeImageMensajeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 670));
 
+        jPanelnfoContacto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextFieldNameContacto.setBackground(new java.awt.Color(219, 219, 219));
+        jTextFieldNameContacto.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
+        jTextFieldNameContacto.setForeground(new java.awt.Color(51, 102, 255));
+        jTextFieldNameContacto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldNameContacto.setBorder(null);
+        jTextFieldNameContacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNameContactoActionPerformed(evt);
+            }
+        });
+        jPanelnfoContacto.add(jTextFieldNameContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 200, 30));
+
+        jLabelIPContacto.setBackground(new java.awt.Color(219, 219, 219));
+        jLabelIPContacto.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
+        jLabelIPContacto.setForeground(new java.awt.Color(51, 102, 255));
+        jLabelIPContacto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanelnfoContacto.add(jLabelIPContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 200, 40));
+
+        jLabelInformacionContacto.setBackground(new java.awt.Color(219, 219, 219));
+        jLabelInformacionContacto.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
+        jLabelInformacionContacto.setForeground(new java.awt.Color(51, 102, 255));
+        jLabelInformacionContacto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanelnfoContacto.add(jLabelInformacionContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 200, 40));
+        jPanelnfoContacto.add(jButtonActualizarContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 100, 30));
+        jPanelnfoContacto.add(jButtonRegre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 40, 40));
+
+        jLabeimageInfoConcto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/infocontacto.jpeg"))); // NOI18N
+        jPanelnfoContacto.add(jLabeimageInfoConcto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 670));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -353,6 +394,11 @@ public class TelefonoView extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanelContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelnfoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,10 +433,19 @@ public class TelefonoView extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanelContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelnfoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldNameContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameContactoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNameContactoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -428,6 +483,7 @@ public class TelefonoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton jButtonActualizarContacto;
     public javax.swing.JButton jButtonActualizarUser;
     public javax.swing.JButton jButtonAgregarContacto;
     public javax.swing.JButton jButtonBuscar;
@@ -445,17 +501,21 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JButton jButtonNuevoGrupo;
     public javax.swing.JButton jButtonPerfil;
     public javax.swing.JButton jButtonRegistrarseLoggin;
+    public javax.swing.JButton jButtonRegre;
     public javax.swing.JButton jButtonRegresarContac;
     public javax.swing.JButton jButtonRegresarMen;
     public javax.swing.JButton jButtonRegresarNuevoUser;
     public javax.swing.JButton jButtonUser;
     private javax.swing.JLabel jLabeImageMensajeria;
+    private javax.swing.JLabel jLabeimageInfoConcto;
     private javax.swing.JLabel jLabeimagenNuevoUser;
+    public javax.swing.JLabel jLabelIPContacto;
     public javax.swing.JLabel jLabelIPUser;
     private javax.swing.JLabel jLabelImageContacto;
     private javax.swing.JLabel jLabelImageLoggin;
     private javax.swing.JLabel jLabelImagePrincipal;
     private javax.swing.JLabel jLabelImganChat;
+    public javax.swing.JLabel jLabelInformacionContacto;
     private javax.swing.JLabel jLabelMageUser;
     public javax.swing.JLabel jLabelNombreContac;
     public javax.swing.JLabel jLabelPruebaIPconta;
@@ -466,6 +526,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JPanel jPanelMensajeria;
     public javax.swing.JPanel jPanelPrincipal;
     public javax.swing.JPanel jPanelUser;
+    public javax.swing.JPanel jPanelnfoContacto;
     public javax.swing.JPasswordField jPasswordFieldContraRegis;
     public javax.swing.JPasswordField jPasswordFieldLoggin;
     private javax.swing.JScrollPane jScrollPane1;
@@ -481,6 +542,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JTextField jTextFieldInformacionUser;
     public javax.swing.JTextField jTextFieldIngresaIP;
     public javax.swing.JTextField jTextFieldMensaje;
+    public javax.swing.JTextField jTextFieldNameContacto;
     public javax.swing.JTextField jTextFieldNom;
     public javax.swing.JTextField jTextFieldNomContac;
     public javax.swing.JTextField jTextFieldNombreUser;

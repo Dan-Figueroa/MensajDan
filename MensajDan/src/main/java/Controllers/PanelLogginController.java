@@ -41,7 +41,7 @@ public class PanelLogginController implements ActionListener{
         btn.hacerBotonesInvisibles(logginV.jButtonIngresarLoggin, logginV.jButtonRegistrarseLoggin);
         this.logginV.jButtonIngresarLoggin.addActionListener(this);
         this.logginV.jButtonRegistrarseLoggin.addActionListener(this);
-        panelUtil.inicializar(logginV.jPanelLoggin, logginV.jPaneNuevoUser, logginV.jPanelPrincipal, logginV.jPanelUser, logginV.jPanelChat, logginV.jPanelMensajeria, logginV.jPanelContacto);
+        panelUtil.inicializar(logginV.jPanelLoggin, logginV.jPaneNuevoUser, logginV.jPanelPrincipal, logginV.jPanelUser, logginV.jPanelChat, logginV.jPanelMensajeria, logginV.jPanelContacto, logginV.jPanelnfoContacto);
     }
 
     @Override

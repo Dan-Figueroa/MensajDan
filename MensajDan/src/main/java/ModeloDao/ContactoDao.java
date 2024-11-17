@@ -144,6 +144,36 @@ public class ContactoDao {
 
         return ipContacto;
     }
+    
+    public Contactos obtenerInformacionContacto(String ipUsuario, String ipContacto) {
+        Contactos contacto = null;
+        // Consulta SQL ajustada para usar los nombres correctos de las columnas en la vista
+        String sql = "SELECT nombre_registrado, informacion_contacto, ip_contacto " +
+                     "FROM VistaInformacionContacto WHERE ip_contacto = ? AND ipUsuario = ?";
+
+        try (Connection con = conexion.getConnection();  // Conexión a la base de datos
+             PreparedStatement ps = con.prepareStatement(sql)) {  // Preparar la consulta
+
+            ps.setString(1, ipContacto);  // Establece la IP del contacto
+            ps.setString(2, ipUsuario);   // Establece la IP del usuario logueado
+
+            try (ResultSet rs = ps.executeQuery()) {  // Ejecutar la consulta
+                if (rs.next()) {  // Si hay resultados
+                    contacto = new Contactos();
+                    contacto.setNombreCon(rs.getString("nombre_registrado"));  // Asigna el nombre
+                    contacto.setSetInformacionContacto(rs.getString("informacion_contacto"));  // Asigna la información pública
+                    contacto.setIpUsCont(rs.getString("ip_contacto"));  // Asigna la IP del contacto
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener la información del contacto: " + e.getMessage());
+        }
+
+        return contacto;  // Retorna el contacto con la información
+    }
+
+
 
     
     

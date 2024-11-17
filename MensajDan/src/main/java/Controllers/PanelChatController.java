@@ -6,6 +6,8 @@ package Controllers;
 
 import Modelo.Contactos;
 import ModeloDao.ContactoDao;
+import Server.ClienteMensajes;
+import Server.ServidorMensajes;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
@@ -25,6 +27,8 @@ public class PanelChatController implements ActionListener{
     private BotonesInvisibles btn;
     private PanelesVisibles panelUtil;
     private String ip;
+    private ContactoDao contactoDao;
+    private String ipContacto;
 
     public PanelChatController(TelefonoView chatV) {
         this.chatV = chatV;
@@ -35,6 +39,18 @@ public class PanelChatController implements ActionListener{
         this.chatV.jButtonBuscar.addActionListener(this);
         this.chatV.jButtonNuevoContacto.addActionListener(this);
         this.chatV.jButtonNuevoGrupo.addActionListener(this);
+        chatV.jTable1.getSelectionModel().addListSelectionListener(e -> {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = chatV.jTable1.getSelectedRow();
+                    if (selectedRow != -1) {
+                        String nombreContacto = chatV.jTable1.getValueAt(selectedRow, 0).toString();
+                        String ipContacto = ObtenerIpContacto(nombreContacto);
+                        MostrarDatosDelContacto();
+                        panelUtil.mostrarPanel(chatV.jPanelnfoContacto);
+                        panelUtil.cerrarPanel(chatV.jPanelChat);
+                    }
+                }
+            });
     }
     
     @Override
@@ -106,6 +122,28 @@ public class PanelChatController implements ActionListener{
         tablaContactos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablaContactos.getColumnModel().getColumn(0).setPreferredWidth(203);
         return tablaContactos;
+    }
+    
+    public String ObtenerIpContacto(String nom){
+        contactoDao = new ContactoDao();
+        ipContacto = contactoDao.obtenerIpContactoPorNombre(nom, ip);
+        if (ipContacto != null) {
+            System.out.println("La IP del contacto es: " + ipContacto);
+        } else {
+            System.out.println("Contacto no encontrado.");
+        }
+        return ipContacto;
+    }
+    
+    private void MostrarDatosDelContacto(){
+        contactoDao = new ContactoDao();
+        Contactos contacto = new Contactos();
+        contacto = contactoDao.obtenerInformacionContacto(ip, ipContacto);
+        chatV.jTextFieldNameContacto.setText(contacto.getNombreCon());
+        chatV.jLabelIPContacto.setText(contacto.getIpUsCont());
+        chatV.jLabelInformacionContacto.setText(contacto.getSetInformacionContacto());
+        System.out.println("los datos del contacto son "+contacto.getNombreCon()+ "su info es "+ contacto.getSetInformacionContacto());
+        System.out.println("el ip del usuario es"+ ip +"y la ip del contacto seleccionado es " + ipContacto);
     }
     
 }
