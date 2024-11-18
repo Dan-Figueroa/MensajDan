@@ -61,6 +61,8 @@ public class PanelPrincipalController implements ActionListener{
 
                         panelUtil.mostrarPanel(principalV.jPanelMensajeria);
                         principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
+                        principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);
+                        principalV.jTableContac.clearSelection();
                         panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                     }
                 }

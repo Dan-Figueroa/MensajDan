@@ -45,7 +45,7 @@ public class PanelChatController implements ActionListener{
                         String ipContacto = ObtenerIpContacto(nombreContacto);
                         MostrarDatosDelContacto();
                         panelUtil.mostrarPanel(chatV.jPanelnfoContacto);
-                        //inicializarVista(true);
+                        chatV.jTable1.clearSelection();
                         panelUtil.cerrarPanel(chatV.jPanelChat);
                     }
                 }
