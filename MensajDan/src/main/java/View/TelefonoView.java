@@ -29,7 +29,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public PanelChatController ChatContaC;
     public PanelContactoController contactoC;
     public PanelMensajesController mensajeC;
-    PanelnfoContactoController infoContacC;
+    public PanelnfoContactoController infoContacC;
     
     public TelefonoView() {
         initComponents();
@@ -353,7 +353,7 @@ public class TelefonoView extends javax.swing.JFrame {
         jLabelInformacionContacto.setForeground(new java.awt.Color(51, 102, 255));
         jLabelInformacionContacto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanelnfoContacto.add(jLabelInformacionContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 200, 40));
-        jPanelnfoContacto.add(jButtonActualizarContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 100, 30));
+        jPanelnfoContacto.add(jButtonActualizarContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 100, 40));
         jPanelnfoContacto.add(jButtonRegre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 40, 40));
 
         jLabeimageInfoConcto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/infocontacto.jpeg"))); // NOI18N

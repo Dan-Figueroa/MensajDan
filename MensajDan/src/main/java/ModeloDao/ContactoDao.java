@@ -173,7 +173,25 @@ public class ContactoDao {
         return contacto;  // Retorna el contacto con la información
     }
 
+        public boolean actualizarNombreContacto(String ipUsuario, String ipContacto, String nuevoNombre) {
+        String sql = "UPDATE Contacto SET nombreCon = ? WHERE ipUsuario = ? AND ipUsCont = ?";
 
+        try (Connection con = conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nuevoNombre);  // Establece el nuevo nombre del contacto
+            ps.setString(2, ipUsuario);  // Establece la IP del usuario logueado
+            ps.setString(3, ipContacto);  // Establece la IP del contacto específico
+
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el nombre del contacto: " + e.getMessage());
+        }
+
+        return false;  // Retorna false si no se pudo actualizar
+    }
 
     
     

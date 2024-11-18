@@ -6,8 +6,6 @@ package Controllers;
 
 import Modelo.Contactos;
 import ModeloDao.ContactoDao;
-import Server.ClienteMensajes;
-import Server.ServidorMensajes;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
@@ -39,6 +37,7 @@ public class PanelChatController implements ActionListener{
         this.chatV.jButtonBuscar.addActionListener(this);
         this.chatV.jButtonNuevoContacto.addActionListener(this);
         this.chatV.jButtonNuevoGrupo.addActionListener(this);
+        //Mostrar();
         chatV.jTable1.getSelectionModel().addListSelectionListener(e -> {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = chatV.jTable1.getSelectedRow();
@@ -70,7 +69,6 @@ public class PanelChatController implements ActionListener{
     public void setUsuario(String ip) {
         this.ip = ip;
         System.out.println("La IP del usuario es: " + ip);
-        Mostrar(); // Carga los contactos o la información del usuario si es necesario
     }
     
     private void BuscarContactos(){
@@ -142,8 +140,6 @@ public class PanelChatController implements ActionListener{
         chatV.jTextFieldNameContacto.setText(contacto.getNombreCon());
         chatV.jLabelIPContacto.setText(contacto.getIpUsCont());
         chatV.jLabelInformacionContacto.setText(contacto.getSetInformacionContacto());
-        System.out.println("los datos del contacto son "+contacto.getNombreCon()+ "su info es "+ contacto.getSetInformacionContacto());
-        System.out.println("el ip del usuario es"+ ip +"y la ip del contacto seleccionado es " + ipContacto);
     }
     
 }
