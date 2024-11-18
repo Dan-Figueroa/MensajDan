@@ -43,12 +43,12 @@ public class PanelMensajesController implements ActionListener{
     if (this.mensaV.jButtonRegresarMen == ae.getSource()) {
         panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
         panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
-        Servicios.Messeger.cerrarserver();
+        Servicios.Messenger.cerrarcliente();
         System.out.println("cerrado servidor");
     } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
-        Servicios.Messeger.Servidor.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
+        Servicios.Messenger.Cliente.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
         this.mensaV.jTextFieldMensaje.getText());
-        this.mensaV.jTextArea1.setForeground(Color.black);
+        this.mensaV.jTextArea1.setForeground(Color.BLUE);
         this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
         this.mensaV.jLabelNombreContac.getText()+" : \n"+
         this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
@@ -61,3 +61,4 @@ public class PanelMensajesController implements ActionListener{
         //limpiaCampo.limpiarTextAreas(mensaV.jTextArea1);
     }
 }
+    

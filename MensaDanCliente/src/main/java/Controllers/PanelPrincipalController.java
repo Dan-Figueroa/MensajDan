@@ -4,11 +4,11 @@
  */
 package Controllers;
 
-import Modelo.Conector;
 import Modelo.Contactos;
 import Modelo.Usuario;
 import ModeloDao.ContactoDao;   
 import ModeloDao.UsuarioDao;
+import Servicios.Messenger;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
@@ -52,7 +52,7 @@ public class PanelPrincipalController implements ActionListener{
                         principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
                         principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);
                         principalV.jTableContac.clearSelection();
-                        Servicios.Messeger.iniciarserver();
+                        Messenger.iniciarcliente(this.principalV.jLabelPruebaIPconta.getText()); 
                         panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                     }
                 }
