@@ -20,7 +20,7 @@ public class PanelesVisibles {
         panelCerrar.setVisible(false);
     }
      
-    public void inicializar(JPanel inicioSesion, JPanel nuevoUser, JPanel principal, JPanel User, JPanel Chat, JPanel Mensajes, JPanel Contac) {
+    public void inicializar(JPanel inicioSesion, JPanel nuevoUser, JPanel principal, JPanel User, JPanel Chat, JPanel Mensajes, JPanel Contac, JPanel infoContac) {
         inicioSesion.setVisible(true);
         nuevoUser.setVisible(false);
         principal.setVisible(false);
@@ -28,5 +28,6 @@ public class PanelesVisibles {
         Chat.setVisible(false);
         Mensajes.setVisible(false);
         Contac.setVisible(false);
+        infoContac.setVisible(false);
     }
 }
