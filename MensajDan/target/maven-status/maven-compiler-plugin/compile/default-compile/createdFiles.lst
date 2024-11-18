@@ -8,10 +8,14 @@ Controllers/PanelUserController.class
 Controllers/PanelNuevoUserController.class
 Controllers/PanelPrincipalController.class
 Servicios/NuevoUserServicio.class
+ModeloDao/ConversacionesDao.class
 Utils/BotonesInvisibles.class
-Modelo/Conector.class
+Modelo/Mensaje.class
 Conexion/Conexion.class
+ModeloDao/MensajeDao.class
+Modelo/Conector.class
 Servicios/Messeger.class
+
 Utils/PanelesVisibles.class
 Modelo/Usuario.class
 View/TelefonoView$1.class

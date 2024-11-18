@@ -17,19 +17,12 @@ import java.util.ArrayList;
  */
 public class ContactoDao {
     
-    // Instancia única de la conexión a través del Singleton
     private final Conexion conexion = Conexion.getInstance();    // Instancia única de la conexión a través del Singleton
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     
 
-    /**
-     * Agregar un nuevo contacto a la base de datos.
-     *
-     * @param contacto Objeto Contactos con la información del nuevo contacto.
-     * @return true si el contacto fue agregado correctamente, false en caso contrario.
-     */
     public boolean agregarContacto(Contactos contacto) {
         String sql = "INSERT INTO Contacto(nombreCon, ipUsuario, ipUsCont) VALUES(?, ?, ?)";
         boolean resultado = false;
@@ -46,17 +39,13 @@ public class ContactoDao {
 
         } catch (SQLException e) {
             System.err.println("Error al agregar el contacto: " + e.getMessage());
+        } finally{
+            closeResources();
         }
 
         return resultado;
     }
 
-    /**
-     * Obtener una lista de los nombres de contactos asociados a un usuario.
-     *
-     * @param ipUsuario Dirección IP del usuario principal.
-     * @return Lista de objetos Contactos con los nombres de los contactos.
-     */
     public ArrayList<Contactos> obtenerNombresContactos(String ipUsuario) {
         ArrayList<Contactos> nombresContactos = new ArrayList<>();
         String sql = "SELECT nombreContacto FROM VistaNombresContactos WHERE ipUsuarioPrincipal = ?";
@@ -76,18 +65,13 @@ public class ContactoDao {
 
         } catch (SQLException e) {
             System.err.println("Error al obtener nombres de contactos: " + e.getMessage());
+        } finally{
+            closeResources();
         }
 
         return nombresContactos;
     }
 
-    /**
-     * Buscar contactos por nombre y dirección IP del usuario.
-     *
-     * @param nombre Nombre parcial o completo del contacto.
-     * @param ipUsuario Dirección IP del usuario asociado.
-     * @return Lista de contactos que coinciden con los criterios de búsqueda.
-     */
     public ArrayList<Contactos> buscarContactosPorNombre(String nombre, String ipUsuario) {
         ArrayList<Contactos> contactos = new ArrayList<>();
         String sql = "SELECT * FROM Contacto WHERE nombreCon LIKE ? AND ipUsuario = ?";
@@ -110,18 +94,13 @@ public class ContactoDao {
 
         } catch (SQLException e) {
             System.err.println("Error al buscar contactos por nombre: " + e.getMessage());
+        }finally{
+            closeResources();
         }
 
         return contactos;
     }
     
-    /**
- * Obtener la dirección IP de un contacto dado su nombre.
- *
- * @param nombre Nombre del contacto.
- * @param ipUsuario Dirección IP del usuario asociado.
- * @return La dirección IP del contacto si existe, o null si no se encuentra.
- */
     public String obtenerIpContactoPorNombre(String nombre, String ipUsuario) {
         String sql = "SELECT ipUsCont FROM Contacto WHERE nombreCon = ? AND ipUsuario = ?";
         String ipContacto = null;
@@ -140,6 +119,8 @@ public class ContactoDao {
 
         } catch (SQLException e) {
             System.err.println("Error al obtener la IP del contacto por nombre: " + e.getMessage());
+        }finally{
+            closeResources();
         }
 
         return ipContacto;
@@ -168,6 +149,8 @@ public class ContactoDao {
 
         } catch (SQLException e) {
             System.err.println("Error al obtener la información del contacto: " + e.getMessage());
+        }finally{
+            closeResources();
         }
 
         return contacto;  // Retorna el contacto con la información
@@ -188,16 +171,14 @@ public class ContactoDao {
 
         } catch (SQLException e) {
             System.err.println("Error al actualizar el nombre del contacto: " + e.getMessage());
+        }finally{
+            closeResources();
         }
 
-        return false;  // Retorna false si no se pudo actualizar
+        return false; 
     }
 
-    
-    
-    /**
-     * Método privado para cerrar los recursos de base de datos.
-     */
+
     private void closeResources() {
         try {
             if (rs != null) {

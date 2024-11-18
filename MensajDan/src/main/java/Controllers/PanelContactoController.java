@@ -9,6 +9,7 @@ import Modelo.Usuario;
 import ModeloDao.ContactoDao;
 import Servicios.ContactoServicio;
 import Utils.BotonesInvisibles;
+import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ public class PanelContactoController implements ActionListener{
     private BotonesInvisibles btn;
     private Usuario usuario;
     private PanelesVisibles panelUtil;
+    private LimpiarCampos limpiarCampos;
     ContactoServicio service;
     private Contactos contacto;
     private ContactoDao contaDao;
@@ -35,6 +37,7 @@ public class PanelContactoController implements ActionListener{
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
         this.service = new ContactoServicio();
+        this.limpiarCampos = new LimpiarCampos();
         BotonesInvisibles();
         this.ContacV.jButtonCrearContac.addActionListener(this);
         this.ContacV.jButtonRegresarContac.addActionListener(this);
@@ -53,6 +56,7 @@ public class PanelContactoController implements ActionListener{
     private void Regresar(){
        panelUtil.mostrarPanel(ContacV.jPanelPrincipal);
        ContacV.pricipalC.inicializarVista(true);
+       limpiardatos();
        panelUtil.cerrarPanel(ContacV.jPanelContacto);
     }
     
@@ -77,6 +81,11 @@ public class PanelContactoController implements ActionListener{
     
     private void BotonesInvisibles(){
         btn.hacerBotonesInvisibles(ContacV.jButtonCrearContac, ContacV.jButtonRegresarContac);
+    }
+    
+    private void limpiardatos(){
+        limpiarCampos.limpiarTextFields(ContacV.jTextFieldNomContac);
+        limpiarCampos.limpiarTextFields(ContacV.jTextFieldIPContac);
     }
     
 }
