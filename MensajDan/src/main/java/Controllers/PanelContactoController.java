@@ -35,7 +35,7 @@ public class PanelContactoController implements ActionListener{
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
         this.service = new ContactoServicio();
-        btn.hacerBotonesInvisibles(ContacV.jButtonCrearContac, ContacV.jButtonRegresarContac);
+        BotonesInvisibles();
         this.ContacV.jButtonCrearContac.addActionListener(this);
         this.ContacV.jButtonRegresarContac.addActionListener(this);
     }
@@ -46,9 +46,13 @@ public class PanelContactoController implements ActionListener{
         if(this.ContacV.jButtonCrearContac == ae.getSource()){
             ObtenerDatos();
         }else if(this.ContacV.jButtonRegresarContac == ae.getSource()){
-            panelUtil.mostrarPanel(ContacV.jPanelPrincipal);
-            panelUtil.cerrarPanel(ContacV.jPanelContacto);
+            Regresar();
         }
+    }
+    
+    private void Regresar(){
+       panelUtil.mostrarPanel(ContacV.jPanelPrincipal);
+       panelUtil.cerrarPanel(ContacV.jPanelContacto);
     }
     
     private void ObtenerDatos(){
@@ -68,7 +72,10 @@ public class PanelContactoController implements ActionListener{
     
     public void setUsuario(String ip) {
         this.ip = ip;
-        System.out.println("La IP del usuario es: " + ip);
+    }
+    
+    private void BotonesInvisibles(){
+        btn.hacerBotonesInvisibles(ContacV.jButtonCrearContac, ContacV.jButtonRegresarContac);
     }
     
 }

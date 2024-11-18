@@ -44,14 +44,12 @@ public class PanelnfoContactoController implements ActionListener{
         if(this.infoContactV.jButtonRegre == ae.getSource()){
             RegresarOptionChat();
         }else if(this.infoContactV.jButtonActualizarContacto == ae.getSource()){
-            System.out.println("funciono");
             ObtenerDatosContacto();
         }
     }
     
     public void setUsuario(String ip) {
         this.ip = ip;
-        System.out.println("La IP del usuario es: " + ip);
     }
     
     
@@ -69,6 +67,7 @@ public class PanelnfoContactoController implements ActionListener{
     
     private void RegresarOptionChat(){
         panelUtil.mostrarPanel(infoContactV.jPanelChat);
+        infoContactV.ChatContaC.inicializarVista(true);
         panelUtil.cerrarPanel(infoContactV.jPanelnfoContacto);
     }
     

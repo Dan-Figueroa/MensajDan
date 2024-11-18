@@ -35,7 +35,7 @@ public class PanelNuevoUserController implements ActionListener{
         this.panelUtil = new PanelesVisibles();
         this.service = new NuevoUserServicio();
         this.limpiarCampos = new LimpiarCampos();
-        btn.hacerBotonesInvisibles(nuevoUser.jButtonCrearUser, nuevoUser.jButtonRegresarNuevoUser);
+        OcultarBotones();
         this.nuevoUser.jButtonCrearUser.addActionListener(this);
         this.nuevoUser.jButtonRegresarNuevoUser.addActionListener(this);
         
@@ -46,9 +46,13 @@ public class PanelNuevoUserController implements ActionListener{
         if(this.nuevoUser.jButtonCrearUser == ae.getSource()){
             ObtenerDatos();
         }else if(this.nuevoUser.jButtonRegresarNuevoUser == ae.getSource()){
-            panelUtil.mostrarPanel(nuevoUser.jPanelLoggin);
-            panelUtil.cerrarPanel(nuevoUser.jPaneNuevoUser);
+            regresar();
         }
+    }
+    
+    private void regresar(){
+        panelUtil.mostrarPanel(nuevoUser.jPanelLoggin);
+        panelUtil.cerrarPanel(nuevoUser.jPaneNuevoUser);
     }
     
     private void ObtenerDatos(){
@@ -70,9 +74,13 @@ public class PanelNuevoUserController implements ActionListener{
         }
     }
     
-     public void limpiardatos(){
+    private void limpiardatos(){
         limpiarCampos.limpiarTextFields(nuevoUser.jTextFieldNom);
         limpiarCampos.limpiarPasswordFields(nuevoUser.jPasswordFieldContraRegis);
+    }
+    
+    private void OcultarBotones(){
+        btn.hacerBotonesInvisibles(nuevoUser.jButtonCrearUser, nuevoUser.jButtonRegresarNuevoUser);
     }
 
 }

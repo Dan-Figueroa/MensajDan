@@ -76,7 +76,6 @@ public class TelefonoView extends javax.swing.JFrame {
         jPasswordFieldContraRegis = new javax.swing.JPasswordField();
         jLabeimagenNuevoUser = new javax.swing.JLabel();
         jPanelUser = new javax.swing.JPanel();
-        jButtonUser = new javax.swing.JButton();
         jButtonChatPrincipal = new javax.swing.JButton();
         jButtonCerrarSesion = new javax.swing.JButton();
         jTextFieldNombreUser = new javax.swing.JTextField();
@@ -205,7 +204,6 @@ public class TelefonoView extends javax.swing.JFrame {
         jPaneNuevoUser.add(jLabeimagenNuevoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 670));
 
         jPanelUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelUser.add(jButtonUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 600, -1, 40));
         jPanelUser.add(jButtonChatPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 600, 80, 40));
         jPanelUser.add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 510, 110, 30));
 
@@ -505,7 +503,6 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JButton jButtonRegresarContac;
     public javax.swing.JButton jButtonRegresarMen;
     public javax.swing.JButton jButtonRegresarNuevoUser;
-    public javax.swing.JButton jButtonUser;
     private javax.swing.JLabel jLabeImageMensajeria;
     private javax.swing.JLabel jLabeimageInfoConcto;
     private javax.swing.JLabel jLabeimagenNuevoUser;
