@@ -65,4 +65,17 @@ JOIN
 -------------------------------------------------------------------
 ALTER TABLE Usuario
 ADD COLUMN informacion TEXT DEFAULT '!Estoy utilizando MensaDan¡';
+-----------------------------------------------
+CREATE OR REPLACE VIEW VistaInformacionContacto AS
+SELECT 
+    C.nombreCon AS nombre_registrado,  -- Nombre que el usuario le asignó al contacto
+    U.informacion AS informacion_contacto, -- Información pública del contacto
+    U.ipUsuario AS ip_contacto,  -- IP del contacto
+    C.ipUsuario AS ipUsuario    -- Añadir la IP del usuario (que se puede filtrar)
+FROM 
+    Contacto C
+JOIN 
+    Usuario U ON C.ipUsCont = U.ipUsuario;
+---------------------------------
+
 
