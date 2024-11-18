@@ -9,48 +9,49 @@ Create database mensadan;
 
 \c mensadan
 
+-- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS Usuario (
-    ipUsuario VARCHAR PRIMARY KEY,
-    nombre VARCHAR NOT NULL,
-    contraseña VARCHAR NOT NULL,
-    estado VARCHAR CHECK (estado IN ('en línea', 'desconectado')),
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ipUsuario VARCHAR PRIMARY KEY, -- Dirección IP como identificador único
+    nombre VARCHAR NOT NULL, -- Nombre del usuario
+    contraseña VARCHAR NOT NULL, -- Contraseña del usuario
+    estado VARCHAR CHECK (estado IN ('en línea', 'desconectado')), -- Estado actual
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Fecha de creación
 );
 
+
+-- Tabla de contactos
 CREATE TABLE IF NOT EXISTS Contacto (
-    idCont SERIAL PRIMARY KEY,
-    nombreCon VARCHAR,
-    ipUsuario VARCHAR NOT NULL,--ESTE ES EL ID DEL USUARIO QUE VA A DAR DE ALTA A SU CONTACTO
-    ipUsCont VARCHAR NOT NULL,--IP DEL CONTACO DEL USUARIO DE ARRIBA 
-    UNIQUE (ipUsuario, ipUsCont),
-    FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE,
-    FOREIGN KEY (ipUsCont) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE
+    idCont SERIAL PRIMARY KEY, -- Identificador único del contacto
+    nombreCon VARCHAR, -- Nombre del contacto
+    ipUsuario VARCHAR NOT NULL, -- Usuario que registra al contacto
+    ipUsCont VARCHAR NOT NULL, -- IP del contacto registrado
+    UNIQUE (ipUsuario, ipUsCont), -- Evita duplicados
+    FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE, -- Vincula al usuario dueño del contacto
+    FOREIGN KEY (ipUsCont) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE -- Vincula al usuario registrado como contacto
 );
 
+
+-- Tabla de conversaciones
 CREATE TABLE IF NOT EXISTS Conversacion (
-    idConv SERIAL PRIMARY KEY,
-    tipo VARCHAR NOT NULL, --personal o en grupo
-    fechaInicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    idConv SERIAL PRIMARY KEY, -- Identificador único de la conversación
+    ipUsuario1 VARCHAR NOT NULL, -- Usuario que inicia la conversación
+    ipUsuario2 VARCHAR NOT NULL, -- Usuario receptor
+    fechaInicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha de inicio de la conversación
+    FOREIGN KEY (ipUsuario1) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE, -- Vincula al usuario iniciador
+    FOREIGN KEY (ipUsuario2) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE -- Vincula al usuario receptor
 );
 
-CREATE TABLE IF NOT EXISTS Participante (
-    idPart SERIAL PRIMARY KEY,
-    idConv INT NOT NULL,
-    ipUsuario VARCHAR NOT NULL,
-    fechaEntrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (idConv) REFERENCES Conversacion(idConv) ON DELETE CASCADE,
-    FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE
-);
 
+-- Tabla de mensajes
 CREATE TABLE IF NOT EXISTS Mensaje (
-    idMnj SERIAL PRIMARY KEY,
-    idConv INT NOT NULL,
-    ipUsuario VARCHAR NOT NULL,
-    contenido TEXT,
-    fechaEnvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado VARCHAR DEFAULT 'enviado',
-    FOREIGN KEY (idConv) REFERENCES Conversacion(idConv) ON DELETE CASCADE,
-    FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE
+    idMnj SERIAL PRIMARY KEY, -- Identificador único del mensaje
+    idConv INT NOT NULL, -- Relacionado con una conversación
+    ipUsuario VARCHAR NOT NULL, -- Usuario que envía el mensaje
+    contenido TEXT NOT NULL, -- Contenido del mensaje
+    fechaEnvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha de envío del mensaje
+    estado VARCHAR DEFAULT 'enviado' CHECK (estado IN ('enviado', 'recibido', 'leído')), -- Estado del mensaje
+    FOREIGN KEY (idConv) REFERENCES Conversacion(idConv) ON DELETE CASCADE, -- Vincula a la conversación
+    FOREIGN KEY (ipUsuario) REFERENCES Usuario(ipUsuario) ON DELETE CASCADE -- Vincula al usuario que envía el mensaje
 );
 
 --------------------------------------------------------------
