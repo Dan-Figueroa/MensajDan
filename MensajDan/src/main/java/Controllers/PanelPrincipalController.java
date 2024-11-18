@@ -17,8 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -90,7 +88,7 @@ public class PanelPrincipalController implements ActionListener{
     public void setUsuario(String ip) {
         this.ip = ip;
         System.out.println("La IP del usuario es: " + ip);
-        Mostrar(); // Carga los contactos o la información del usuario si es necesario
+        Mostrar(); // Carga los contactos
     }
     
     
