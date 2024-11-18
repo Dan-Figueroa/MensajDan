@@ -52,6 +52,7 @@ public class PanelContactoController implements ActionListener{
     
     private void Regresar(){
        panelUtil.mostrarPanel(ContacV.jPanelPrincipal);
+       ContacV.pricipalC.inicializarVista(true);
        panelUtil.cerrarPanel(ContacV.jPanelContacto);
     }
     
