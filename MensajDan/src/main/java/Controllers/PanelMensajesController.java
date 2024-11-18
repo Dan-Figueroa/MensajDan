@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controllers;
-import Server.ClienteMensajes;
-import Server.ServidorMensajes;
 import Utils.BotonesInvisibles;
 import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
@@ -23,8 +21,6 @@ import java.util.Date;
 public class PanelMensajesController implements ActionListener{
 
     TelefonoView mensaV;
-    private ServidorMensajes servidor;
-    private ClienteMensajes cliente;
     private PanelesVisibles panelUtil;
     private LimpiarCampos limpiaCampo;
     private BotonesInvisibles btn;
@@ -46,22 +42,9 @@ public class PanelMensajesController implements ActionListener{
     if (this.mensaV.jButtonRegresarMen == ae.getSource()) {
         panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
         panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
-        if (servidor != null) {
-            servidor.cerrarServidor();
-            servidor = null; // Limpieza de referencia
-        }
-        if (cliente != null) {
-            cliente.cerrarCliente();
-            cliente = null; // Limpieza de referencia
-        }
         System.out.println("cerrado servidor");
     } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
         String mensaje = mensaV.jTextFieldMensaje.getText();
-        if (servidor != null) {
-            servidor.enviarMensaje(mensaje);
-        } else if (cliente != null) {
-            cliente.enviarMensaje(mensaje);
-        }
         mensaV.jTextArea1.append("Tú: " + mensaje + "\n");
         mensaV.jTextFieldMensaje.setText("");
     }

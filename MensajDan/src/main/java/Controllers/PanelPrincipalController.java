@@ -8,8 +8,6 @@ import Modelo.Contactos;
 import Modelo.Usuario;
 import ModeloDao.ContactoDao;   
 import ModeloDao.UsuarioDao;
-import Server.ClienteMensajes;
-import Server.ServidorMensajes;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
 import View.TelefonoView;
@@ -29,8 +27,6 @@ public class PanelPrincipalController implements ActionListener{
     private PanelesVisibles panelUtil;
     private UsuarioDao useDao;
     private String ip;
-    private ServidorMensajes servidor;
-    private ClienteMensajes cliente;
     private boolean esServidor = false;
     
 
@@ -51,14 +47,6 @@ public class PanelPrincipalController implements ActionListener{
                     if (selectedRow != -1) {
                         String nombreContacto = principalV.jTableContac.getValueAt(selectedRow, 0).toString();
                         String ipContacto = ObtenerIpContacto(nombreContacto);
-                        if (esServidor) { // Decide si este usuario es el servidor
-                            servidor = new ServidorMensajes(12345); // Puerto arbitrario
-                            servidor.start();
-                        } else {
-                            cliente = new ClienteMensajes(ipContacto, 12345);
-                            cliente.escucharMensajes();
-                        }
-
                         panelUtil.mostrarPanel(principalV.jPanelMensajeria);
                         principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
                         principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);
