@@ -36,4 +36,12 @@ public class ContactoServicio {
         return true; // Retorna true solo si todas las validaciones se cumplen
     }
     
+    public boolean Validacion(JTextField nombre){
+        if(!verificar.verificarCampos(nombre)){
+            JOptionPane.showMessageDialog(null, "Ingrese su nombre, por favor");
+            return false;
+        }
+        return true;
+    }
+    
 }

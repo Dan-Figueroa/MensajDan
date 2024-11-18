@@ -6,12 +6,10 @@ package Controllers;
 
 import Modelo.Usuario;
 import ModeloDao.UsuarioDao;
-//import Servicios.NuevoUserServicio;
 import Servicios.logginServicio;
 import Utils.BotonesInvisibles;
 import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
-import Utils.VerificarCampos;
 import View.TelefonoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,6 +60,7 @@ public class PanelLogginController implements ActionListener{
             logginV.pricipalC.setUsuario(usuarioAutenticado.getIpUsuario());
             logginV.ChatContaC.setUsuario(usuarioAutenticado.getIpUsuario());
             logginV.contactoC.setUsuario(usuarioAutenticado.getIpUsuario());
+            logginV.infoContacC.setUsuario(usuarioAutenticado.getIpUsuario());
             System.out.println("Inicio de sesión exitoso. IP del usuario: " + usuarioAutenticado.getIpUsuario());
             panelUtil.mostrarPanel(logginV.jPanelPrincipal);
             panelUtil.cerrarPanel(logginV.jPanelLoggin);
