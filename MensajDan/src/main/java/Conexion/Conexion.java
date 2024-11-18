@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Conexion {
  private static Conexion instancia; // Instancia única de la clase
     private Connection connection;     // Conexión a la base de datos
-    private static final String URL = "jdbc:postgresql://localhost:5433/mensadan";
+    private static final String URL = "jdbc:postgresql://localhost:5434/mensadan";
     private static final String USER = "servidor";
     private static final String PASSWORD = "servidor";
 
