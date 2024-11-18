@@ -28,32 +28,41 @@ public class PanelUserController implements ActionListener{
         this.btn = new BotonesInvisibles();
         this.panelUtil = new PanelesVisibles();
         this.service = new NuevoUserServicio();
-        btn.hacerBotonesInvisibles(userV.jButtonCerrarSesion,userV.jButtonChatPrincipal, userV.jButtonUser, userV.jButtonHabilitarJtext, userV.jButtonActualizarUser);
+        BotonesInvisibles();
         this.userV.jButtonActualizarUser.addActionListener(this);
         this.userV.jButtonCerrarSesion.addActionListener(this);
         this.userV.jButtonChatPrincipal.addActionListener(this);
-        this.userV.jButtonUser.addActionListener(this);
         this.userV.jButtonHabilitarJtext.addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(this.userV.jButtonCerrarSesion == ae.getSource()){
-            panelUtil.mostrarPanel(userV.jPanelLoggin);
-            panelUtil.cerrarPanel(userV.jPanelUser);
+            CerrarSesion();
         }else if(this.userV.jButtonChatPrincipal == ae.getSource()){
-            panelUtil.mostrarPanel(userV.jPanelPrincipal);
-            userV.jTextFieldInformacionUser.setEditable(false);
-            userV.jTextFieldNombreUser.setEditable(false);
-            panelUtil.cerrarPanel(userV.jPanelUser);
-        }else if(this.userV.jButtonUser == ae.getSource()){
-            System.out.println("user ahi mismo");
+            Volverprincivpal();
         }else if(userV.jButtonHabilitarJtext == ae.getSource()){
-            userV.jTextFieldInformacionUser.setEditable(true);
-            userV.jTextFieldNombreUser.setEditable(true);
+            HabilitarJtextfield();
         }else if(userV.jButtonActualizarUser == ae.getSource()){
             ActualizarUser();
         }
+    }
+    
+    private void Volverprincivpal(){
+        panelUtil.mostrarPanel(userV.jPanelPrincipal);
+        userV.jTextFieldInformacionUser.setEditable(false);
+        userV.jTextFieldNombreUser.setEditable(false);
+        panelUtil.cerrarPanel(userV.jPanelUser);
+    }
+    
+    private void HabilitarJtextfield(){
+        userV.jTextFieldInformacionUser.setEditable(true);
+        userV.jTextFieldNombreUser.setEditable(true);
+    }
+    
+    private void CerrarSesion(){
+        panelUtil.mostrarPanel(userV.jPanelLoggin);
+        panelUtil.cerrarPanel(userV.jPanelUser);
     }
     
     private void ActualizarUser(){
@@ -70,4 +79,7 @@ public class PanelUserController implements ActionListener{
         }
     }
     
+    private void BotonesInvisibles(){
+        btn.hacerBotonesInvisibles(userV.jButtonCerrarSesion,userV.jButtonChatPrincipal, userV.jButtonHabilitarJtext, userV.jButtonActualizarUser);
+    }
 }

@@ -72,6 +72,7 @@ public class PanelPrincipalController implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         if(this.principalV.jButtonAgregarContacto == ae.getSource()){
             panelUtil.mostrarPanel(principalV.jPanelChat);
+            principalV.ChatContaC.inicializarVista(true);
             panelUtil.cerrarPanel(principalV.jPanelPrincipal);
         }else if(this.principalV.jButtonBuscarContacto == ae.getSource()){
             System.out.println("busco contacto");
@@ -85,10 +86,18 @@ public class PanelPrincipalController implements ActionListener{
         }
     }
     
+    public void inicializarVista(boolean cargarContactos) {
+        if (cargarContactos) {
+            Mostrar(); // Carga los contactos en la tabla
+        } else {
+            System.out.println("Vista inicializada sin cargar contactos.");
+        }
+    }
+    
     public void setUsuario(String ip) {
         this.ip = ip;
         System.out.println("La IP del usuario es: " + ip);
-        Mostrar(); // Carga los contactos
+        //Mostrar(); // Carga los contactos
     }
     
     

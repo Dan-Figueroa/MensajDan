@@ -37,7 +37,6 @@ public class PanelChatController implements ActionListener{
         this.chatV.jButtonBuscar.addActionListener(this);
         this.chatV.jButtonNuevoContacto.addActionListener(this);
         this.chatV.jButtonNuevoGrupo.addActionListener(this);
-        //Mostrar();
         chatV.jTable1.getSelectionModel().addListSelectionListener(e -> {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = chatV.jTable1.getSelectedRow();
@@ -46,6 +45,7 @@ public class PanelChatController implements ActionListener{
                         String ipContacto = ObtenerIpContacto(nombreContacto);
                         MostrarDatosDelContacto();
                         panelUtil.mostrarPanel(chatV.jPanelnfoContacto);
+                        //inicializarVista(true);
                         panelUtil.cerrarPanel(chatV.jPanelChat);
                     }
                 }
@@ -55,8 +55,7 @@ public class PanelChatController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(this.chatV.jButtonCerrarChats == ae.getSource()){
-            panelUtil.mostrarPanel(chatV.jPanelPrincipal);
-            panelUtil.cerrarPanel(chatV.jPanelChat);
+            regresar();
         }else if(this.chatV.jButtonNuevoContacto == ae.getSource()){
             panelUtil.mostrarPanel(chatV.jPanelContacto);
             panelUtil.cerrarPanel(chatV.jPanelChat);
@@ -65,10 +64,22 @@ public class PanelChatController implements ActionListener{
         }
     }
     
+    public void regresar(){
+        panelUtil.mostrarPanel(chatV.jPanelPrincipal);
+        chatV.pricipalC.inicializarVista(true);
+        panelUtil.cerrarPanel(chatV.jPanelChat);
+    }
+    
+    public void inicializarVista(boolean cargarContactos) {
+        if (cargarContactos) {
+            Mostrar(); // Carga los contactos en la tabla
+        } else {
+            System.out.println("Vista inicializada sin cargar contactos.");
+        }
+    }
     
     public void setUsuario(String ip) {
         this.ip = ip;
-        System.out.println("La IP del usuario es: " + ip);
     }
     
     private void BuscarContactos(){

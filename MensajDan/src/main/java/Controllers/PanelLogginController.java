@@ -45,10 +45,8 @@ public class PanelLogginController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(this.logginV.jButtonIngresarLoggin == ae.getSource()){
-            System.out.println("jalo");
             auten();
         }else if(this.logginV.jButtonRegistrarseLoggin == ae.getSource()){
-            System.out.println("jalo");
             panelUtil.mostrarPanel(logginV.jPaneNuevoUser);
             panelUtil.cerrarPanel(logginV.jPanelLoggin);
         }
@@ -58,6 +56,7 @@ public class PanelLogginController implements ActionListener{
         Usuario usuarioAutenticado = validarInicioSesion();
         if (usuarioAutenticado != null) {
             logginV.pricipalC.setUsuario(usuarioAutenticado.getIpUsuario());
+            logginV.pricipalC.inicializarVista(true);
             logginV.ChatContaC.setUsuario(usuarioAutenticado.getIpUsuario());
             logginV.contactoC.setUsuario(usuarioAutenticado.getIpUsuario());
             logginV.infoContacC.setUsuario(usuarioAutenticado.getIpUsuario());
