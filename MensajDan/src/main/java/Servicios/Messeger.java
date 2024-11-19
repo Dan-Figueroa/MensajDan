@@ -12,18 +12,17 @@ import Modelo.Conector;
  */
 public class Messeger {
     public static Conector Servidor;
-    
-    public static void iniciarserver()
-    {
-        Servidor = new Conector();
-        Servidor.start();
+
+    public static void iniciarserver() {
+        if (Servidor == null || !Servidor.isAlive()) {
+            Servidor = new Conector();
+            Servidor.start();
+        }
     }
-    
-    public static void cerrarserver()
-    {
-        Servidor = new Conector();
-        Servidor.desconectar();
+
+    public static void cerrarserver() {
+        if (Servidor != null) {
+            Servidor.detener();
+        }
     }
-    
-    
 }

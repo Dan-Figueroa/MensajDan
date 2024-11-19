@@ -167,7 +167,4 @@ public class PanelPrincipalController implements ActionListener{
         }
         return ipContacto;
     }
-
-
-
 }

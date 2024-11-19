@@ -43,20 +43,24 @@ public class PanelPrincipalController implements ActionListener{
         this.principalV.jButtonPerfil.addActionListener(this);
         this.principalV.jButtonChats.addActionListener(this);
         principalV.jTableContac.getSelectionModel().addListSelectionListener(e -> {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = principalV.jTableContac.getSelectedRow();
-                    if (selectedRow != -1) {
-                        String nombreContacto = principalV.jTableContac.getValueAt(selectedRow, 0).toString();
-                        String ipContacto = ObtenerIpContacto(nombreContacto);
-                        panelUtil.mostrarPanel(principalV.jPanelMensajeria);
-                        principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
-                        principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);
-                        principalV.jTableContac.clearSelection();
-                        Servicios.Messeger.iniciarserver();
-                        panelUtil.cerrarPanel(principalV.jPanelPrincipal);
-                    }
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = principalV.jTableContac.getSelectedRow();
+                if (selectedRow != -1) {
+                    String nombreContacto = principalV.jTableContac.getValueAt(selectedRow, 0).toString();
+                    String ipContacto = ObtenerIpContacto(nombreContacto);
+
+                    panelUtil.mostrarPanel(principalV.jPanelMensajeria);
+                    principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
+                    principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);
+                    principalV.jTableContac.clearSelection();
+
+                    // Ejecutar la inicialización del servidor en un nuevo hilo
+                    new Thread(() -> Servicios.Messeger.iniciarserver()).start();
+
+                    panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                 }
-            });
+            }
+        });
         
     }
 
@@ -167,7 +171,4 @@ public class PanelPrincipalController implements ActionListener{
         }
         return ipContacto;
     }
-
-
-
 }
