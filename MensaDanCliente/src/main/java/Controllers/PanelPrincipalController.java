@@ -53,6 +53,7 @@ public class PanelPrincipalController implements ActionListener{
                         principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);
                         principalV.jTableContac.clearSelection();
                         Messenger.iniciarcliente(this.principalV.jLabelPruebaIPconta.getText()); 
+                        PasarDatos();
                         panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                     }
                 }
@@ -155,6 +156,12 @@ public class PanelPrincipalController implements ActionListener{
         principalV.jLabelIPUser.setText(user.getIpUsuario());
         principalV.jTextFieldInformacionUser.setText(user.getInformacion());
         principalV.jTextFieldInformacionUser.setEditable(false);
+    }
+    
+    public void PasarDatos(){
+        Usuario user = new Usuario();
+        user = useDao.obtenerUsuarioPorIp(ip);
+        principalV.mensajeC.setUsuario(user.getIpUsuario(), user.getNombre());
     }
     
     public String ObtenerIpContacto(String nom){

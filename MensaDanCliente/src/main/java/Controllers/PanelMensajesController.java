@@ -42,21 +42,29 @@ public class PanelMensajesController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-    if (this.mensaV.jButtonRegresarMen == ae.getSource()) {
-        panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
-        panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
-        Servicios.Messenger.cerrarcliente();
-        System.out.println("cerrado servidor");
-    } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
-            Servicios.Messenger.Cliente.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
-            this.mensaV.jTextFieldMensaje.getText());
-            this.mensaV.jTextArea1.setForeground(Color.BLUE);
-            this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
-            this.mensaV.jLabelNombreContac.getText()+" : \n"+
-            this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
-            mensaV.jTextFieldMensaje.setText("");
+        if (this.mensaV.jButtonRegresarMen == ae.getSource()) {
+            CerrarServidor();
+        } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
+            EnviarMensaje();
+        }
     }
-}
+    
+    private void EnviarMensaje(){
+        Servicios.Messenger.Cliente.enviarMSG(nombre+" : \n"+
+        this.mensaV.jTextFieldMensaje.getText());
+        //this.mensaV.jTextArea1.setForeground(Color.BLUE);
+        this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+" \n "+
+        nombre + " : \n "+
+        this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
+        mensaV.jTextFieldMensaje.setText("");
+    }
+    
+    private void CerrarServidor(){
+        panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
+        Servicios.Messenger.cerrarcliente();
+        panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
+        System.out.println("cerrado servidor");
+    }
     
     public void limpiardatos(){
         limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);

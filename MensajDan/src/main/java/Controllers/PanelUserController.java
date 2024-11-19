@@ -78,7 +78,7 @@ public class PanelUserController implements ActionListener{
             }
         }
     }
-    
+        
     private void BotonesInvisibles(){
         btn.hacerBotonesInvisibles(userV.jButtonCerrarSesion,userV.jButtonChatPrincipal, userV.jButtonHabilitarJtext, userV.jButtonActualizarUser);
     }

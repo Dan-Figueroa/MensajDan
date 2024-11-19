@@ -41,21 +41,28 @@ public class PanelMensajesController implements ActionListener{
     }
     
     @Override
-public void actionPerformed(ActionEvent ae) {
-    if (this.mensaV.jButtonRegresarMen == ae.getSource()) {
+    public void actionPerformed(ActionEvent ae) {
+        if(this.mensaV.jButtonRegresarMen == ae.getSource()) {
+            CerrarServidor();
+        }else if(this.mensaV.jButtonEnviar == ae.getSource()) {
+            EnviarMensaje();
+        }
+    }
+
+    private void EnviarMensaje(){
+        Servicios.Messeger.Servidor.enviarMSG(nombre+" : \n"+
+        this.mensaV.jTextFieldMensaje.getText());
+        //this.mensaV.jTextArea1.setForeground(Color.BLUE);
+        this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+" \n "+
+        nombre+" : \n "+ this.mensaV.jTextFieldMensaje.getText() +" : "+hora.format(horaactual));
+        mensaV.jTextFieldMensaje.setText("");
+    }
+
+    private void CerrarServidor(){
         panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
-        panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
         Servicios.Messeger.cerrarserver();
+        panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
         System.out.println("Servidor cerrado");
-    } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
-            Servicios.Messeger.Servidor.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
-            this.mensaV.jTextFieldMensaje.getText());
-            this.mensaV.jTextArea1.setForeground(Color.BLUE);
-            this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
-            this.mensaV.jLabelNombreContac.getText()+" : \n"+
-            this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
-            mensaV.jTextFieldMensaje.setText("");
-            }
     }
     
     public void limpiardatos(){
