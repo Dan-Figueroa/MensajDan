@@ -5,93 +5,84 @@
 package Modelo;
 
 import View.TelefonoView;
-import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author danfigueroa
  */
-    public class Conector extends Thread
-{
-    TelefonoView mensaV;
+    public class Conector extends Thread {
     private Socket s;
     private ServerSocket ss;
-    private InputStreamReader entradaSocket;   //the socket entry
-    private DataOutputStream salida;           //data output for send messages
-    private BufferedReader entrada;            //data entry for read messages
-    final int puerto=8000;            // computer port 
- 
-    public Conector()                    
-    {
-        try{
-           ss=new ServerSocket(puerto);       
-           s=ss.accept();   
-            //creacion de entrada de datos para lectura de mensajes     
-           entradaSocket=new InputStreamReader(s.getInputStream());
-           entrada=new BufferedReader(entradaSocket);
-           salida=new DataOutputStream(s.getOutputStream());
-           this.salida.writeUTF(" ****** CONECTADO ******* \n \n ");
-        }catch(Exception e){};
-    
-    }
-    
-    public Conector(String ip)
-    {
-        try{
+    private DataInputStream entrada; // Cambiado a DataInputStream
+    private DataOutputStream salida;
+    private boolean running = true;
+    TelefonoView mensaV;
 
-           s=new Socket(ip,this.puerto);   
-           entradaSocket=new InputStreamReader(s.getInputStream());
-           entrada=new BufferedReader(entradaSocket);    
-           salida=new DataOutputStream(s.getOutputStream());
-         }catch(Exception e){};
-     }
-    
-    public void run()
-    {
-      String texto="text";
-      while(true)
-      {
-        try{
-          texto=entrada.readLine();
-          mensaV.jTextArea1.setText(mensaV.jTextArea1.getText()+"\n"+texto);
-        }catch(IOException e){};
-      }
+    public Conector() {
+        try {
+            ss = new ServerSocket(8000);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void enviarMSG(String msg) {
-        DateFormat hora = new SimpleDateFormat("HH:mm:ss");
+    @Override
+    public void run() {
+        while (running) {
+            try {
+                System.out.println("Esperando conexión...");
+                s = ss.accept();
+                entrada = new DataInputStream(s.getInputStream());
+                salida = new DataOutputStream(s.getOutputStream());
+                salida.writeUTF("Conexión establecida.\n");
+
+                while (running) {
+                    String texto = entrada.readUTF();
+                    SwingUtilities.invokeLater(() -> {
+                        TelefonoView.jTextArea1.setText(TelefonoView.jTextArea1.getText()+"\n"+texto);
+                    });
+                }
+            } catch (IOException e) {
+                if (running) {
+                    e.printStackTrace();
+                }
+            } finally {
+                cerrarRecursos();
+            }
+        }
+    }
+
+   public void enviarMSG(String msg) {
+        SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
         Date horaActual = new Date();
-
         try {
             salida.writeUTF(hora.format(horaActual) + " - " + msg + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-      
-     public String leerMSG()              //method for read a messages
-     { 
-       try{
-            return entrada.readLine();
-          }catch(IOException e){};
-       return null;
-     }
-     
-     public void desconectar()     
-     {  
-        try{
-            s.close();
-           }catch(IOException e){};
-        try{
-            ss.close();
-            }catch(IOException e){};
-     }   
+
+    public void detener() {
+        running = false;
+        cerrarRecursos();
+    }
+
+    private void cerrarRecursos() {
+        try {
+            if (s != null) s.close();
+            if (ss != null) ss.close();
+            if (entrada != null) entrada.close();
+            if (salida != null) salida.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -41,31 +41,30 @@ public class PanelMensajesController implements ActionListener{
     }
     
     @Override
-    public void actionPerformed(ActionEvent ae) {
+public void actionPerformed(ActionEvent ae) {
     if (this.mensaV.jButtonRegresarMen == ae.getSource()) {
         panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
         panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
         Servicios.Messeger.cerrarserver();
-        System.out.println("cerrado servidor");
+        System.out.println("Servidor cerrado");
     } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
-        mensaV.jTextArea1.setEditable(false);//checa si funciona esto para que no se puedan borrar o escribir en el textarea
-        Servicios.Messeger.Servidor.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
-        this.mensaV.jTextFieldMensaje.getText());
-        this.mensaV.jTextArea1.setForeground(Color.black);
-        this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
-        this.mensaV.jLabelNombreContac.getText()+" : \n"+
-        this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
-        mensaV.jTextFieldMensaje.setText("");
-    }
-}
-    
-    public void setUsuario(String ip, String nombre) {
-        this.ip = ip;
-        this.nombre = nombre;
+            Servicios.Messeger.Servidor.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
+            this.mensaV.jTextFieldMensaje.getText());
+            this.mensaV.jTextArea1.setForeground(Color.BLUE);
+            this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
+            this.mensaV.jLabelNombreContac.getText()+" : \n"+
+            this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
+            mensaV.jTextFieldMensaje.setText("");
+            }
     }
     
     public void limpiardatos(){
         limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);
         //limpiaCampo.limpiarTextAreas(mensaV.jTextArea1);
+    }
+    
+    public void setUsuario(String ip, String nombre) {
+        this.ip = ip;
+        this.nombre = nombre;
     }
 }

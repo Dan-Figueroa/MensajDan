@@ -48,24 +48,23 @@ public class PanelMensajesController implements ActionListener{
         Servicios.Messenger.cerrarcliente();
         System.out.println("cerrado servidor");
     } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
-        Servicios.Messenger.Cliente.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
-        this.mensaV.jTextFieldMensaje.getText());
-        //this.mensaV.jTextArea1.setForeground(Color.BLUE);
-        this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
-        this.mensaV.jLabelNombreContac.getText()+" : \n"+
-        this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
-        mensaV.jTextFieldMensaje.setText("");
+            Servicios.Messenger.Cliente.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
+            this.mensaV.jTextFieldMensaje.getText());
+            this.mensaV.jTextArea1.setForeground(Color.BLUE);
+            this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
+            this.mensaV.jLabelNombreContac.getText()+" : \n"+
+            this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
+            mensaV.jTextFieldMensaje.setText("");
     }
 }
-    
-    public void setUsuario(String ip, String nombre) {
-        this.ip = ip;
-        this.nombre = nombre;
-    }
     
     public void limpiardatos(){
         limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);
         //limpiaCampo.limpiarTextAreas(mensaV.jTextArea1);
     }
-}
+    public void setUsuario(String ip, String nombre) {
+        this.ip = ip;
+        this.nombre = nombre;
+    }
     
+}
