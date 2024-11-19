@@ -58,6 +58,7 @@ public class PanelLogginController implements ActionListener{
             logginV.pricipalC.setUsuario(usuarioAutenticado.getIpUsuario());
             logginV.pricipalC.inicializarVista(true);
             logginV.ChatContaC.setUsuario(usuarioAutenticado.getIpUsuario());
+            logginV.mensajeC.setUsuario(usuarioAutenticado.getIpUsuario(), usuarioAutenticado.getNombre());
             logginV.contactoC.setUsuario(usuarioAutenticado.getIpUsuario());
             logginV.infoContacC.setUsuario(usuarioAutenticado.getIpUsuario());
             System.out.println("Inicio de sesión exitoso. IP del usuario: " + usuarioAutenticado.getIpUsuario());

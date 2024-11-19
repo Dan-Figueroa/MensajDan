@@ -25,6 +25,8 @@ public class PanelMensajesController implements ActionListener{
     private PanelesVisibles panelUtil;
     private LimpiarCampos limpiaCampo;
     private BotonesInvisibles btn;
+    private String nombre;
+    private String ip;
     DateFormat  hora = new SimpleDateFormat("HH:mm:ss");
     Date horaactual= new Date();
 
@@ -48,13 +50,18 @@ public class PanelMensajesController implements ActionListener{
     } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
         Servicios.Messenger.Cliente.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
         this.mensaV.jTextFieldMensaje.getText());
-        this.mensaV.jTextArea1.setForeground(Color.BLUE);
+        //this.mensaV.jTextArea1.setForeground(Color.BLUE);
         this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+"\n"+
         this.mensaV.jLabelNombreContac.getText()+" : \n"+
         this.mensaV.jTextFieldMensaje.getText()+" : "+hora.format(horaactual));
         mensaV.jTextFieldMensaje.setText("");
     }
 }
+    
+    public void setUsuario(String ip, String nombre) {
+        this.ip = ip;
+        this.nombre = nombre;
+    }
     
     public void limpiardatos(){
         limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);

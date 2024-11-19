@@ -25,6 +25,8 @@ public class PanelMensajesController implements ActionListener{
     private PanelesVisibles panelUtil;
     private LimpiarCampos limpiaCampo;
     private BotonesInvisibles btn;
+    private String nombre;
+    private String ip;
     DateFormat  hora = new SimpleDateFormat("HH:mm:ss");
     Date horaactual= new Date();
 
@@ -46,6 +48,7 @@ public class PanelMensajesController implements ActionListener{
         Servicios.Messeger.cerrarserver();
         System.out.println("cerrado servidor");
     } else if (this.mensaV.jButtonEnviar == ae.getSource()) {
+        mensaV.jTextArea1.setEditable(false);//checa si funciona esto para que no se puedan borrar o escribir en el textarea
         Servicios.Messeger.Servidor.enviarMSG(this.mensaV.jLabelNombreContac.getText()+" : \n"+
         this.mensaV.jTextFieldMensaje.getText());
         this.mensaV.jTextArea1.setForeground(Color.black);
@@ -55,6 +58,11 @@ public class PanelMensajesController implements ActionListener{
         mensaV.jTextFieldMensaje.setText("");
     }
 }
+    
+    public void setUsuario(String ip, String nombre) {
+        this.ip = ip;
+        this.nombre = nombre;
+    }
     
     public void limpiardatos(){
         limpiaCampo.limpiarTextFields(mensaV.jTextFieldMensaje);
