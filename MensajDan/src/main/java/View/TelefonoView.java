@@ -58,6 +58,7 @@ public class TelefonoView extends javax.swing.JFrame {
         jTextFieldIngresaIP = new javax.swing.JTextField();
         jButtonIngresarLoggin = new javax.swing.JButton();
         jButtonRegistrarseLoggin = new javax.swing.JButton();
+        jButtonPDF = new javax.swing.JButton();
         jLabelImageLoggin = new javax.swing.JLabel();
         jPanelPrincipal = new javax.swing.JPanel();
         jButtonAgregarContacto = new javax.swing.JButton();
@@ -133,6 +134,7 @@ public class TelefonoView extends javax.swing.JFrame {
         jPanelLoggin.add(jTextFieldIngresaIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 253, 160, 30));
         jPanelLoggin.add(jButtonIngresarLoggin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 90, 30));
         jPanelLoggin.add(jButtonRegistrarseLoggin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 120, 20));
+        jPanelLoggin.add(jButtonPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 50, 40));
 
         jLabelImageLoggin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Loggin.png"))); // NOI18N
         jPanelLoggin.add(jLabelImageLoggin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 670));
@@ -497,6 +499,7 @@ public class TelefonoView extends javax.swing.JFrame {
     public javax.swing.JButton jButtonIngresarLoggin;
     public javax.swing.JButton jButtonNuevoContacto;
     public javax.swing.JButton jButtonNuevoGrupo;
+    public javax.swing.JButton jButtonPDF;
     public javax.swing.JButton jButtonPerfil;
     public javax.swing.JButton jButtonRegistrarseLoggin;
     public javax.swing.JButton jButtonRegre;
