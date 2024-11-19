@@ -27,6 +27,7 @@ public class ConectorCliente extends Thread {
     private TelefonoView mensaV;
     private Socket s;
     private ServerSocket ss;
+    private String ip;
     private DataOutputStream salida;
     private DataInputStream entrada;
     private static final int PUERTO = 8000;
@@ -36,6 +37,7 @@ public class ConectorCliente extends Thread {
 
     // Constructor para el cliente
     public ConectorCliente(String ip) {
+        this.ip = ip;
         // Inicia el hilo que intentará conectarse en segundo plano
         start();
     }
@@ -46,7 +48,7 @@ public class ConectorCliente extends Thread {
         while (retries < MAX_RETRIES) {
             try {
                 System.out.println("Intentando conectar al servidor...");
-                s = new Socket("localhost", PUERTO); // Intentamos conectar al servidor
+                s = new Socket(ip, PUERTO); // Intentamos conectar al servidor
                 entrada = new DataInputStream(s.getInputStream());
                 salida = new DataOutputStream(s.getOutputStream());
                 conectado = true;
