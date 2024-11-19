@@ -13,6 +13,8 @@ import Utils.PanelesVisibles;
 import View.TelefonoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,9 +38,10 @@ public class PanelLogginController implements ActionListener{
         this.service = new logginServicio();
         this.useDao = new UsuarioDao();
         this.limpiaCampo = new LimpiarCampos();
-        btn.hacerBotonesInvisibles(logginV.jButtonIngresarLoggin, logginV.jButtonRegistrarseLoggin);
+        btn.hacerBotonesInvisibles(logginV.jButtonIngresarLoggin, logginV.jButtonRegistrarseLoggin, logginV.jButtonPDF);
         this.logginV.jButtonIngresarLoggin.addActionListener(this);
         this.logginV.jButtonRegistrarseLoggin.addActionListener(this);
+        this.logginV.jButtonPDF.addActionListener(this);
         panelUtil.inicializar(logginV.jPanelLoggin, logginV.jPaneNuevoUser, logginV.jPanelPrincipal, logginV.jPanelUser, logginV.jPanelChat, logginV.jPanelMensajeria, logginV.jPanelContacto, logginV.jPanelnfoContacto);
     }
 
@@ -49,6 +52,8 @@ public class PanelLogginController implements ActionListener{
         }else if(this.logginV.jButtonRegistrarseLoggin == ae.getSource()){
             panelUtil.mostrarPanel(logginV.jPaneNuevoUser);
             panelUtil.cerrarPanel(logginV.jPanelLoggin);
+        }else if(this.logginV.jButtonPDF == ae.getSource()){
+            link ();
         }
     }
     
@@ -92,6 +97,23 @@ public class PanelLogginController implements ActionListener{
             }
         }
         return null; // Retorna null si la autenticación falla
+    }
+    
+    private void link () {
+        if (java.awt.Desktop.isDesktopSupported()) {
+            java.awt.Desktop computadora=java.awt.Desktop.getDesktop();
+            if (computadora.isSupported( java.awt.Desktop.Action.BROWSE)){
+                try{
+                java.net.URI 
+                       link=new java.net.URI("https://drive.google.com/file/d/18dDsggig7IfI7i0C0I5-kP-lgoMjT-Ih/view?usp=share_link");
+                computadora.browse(link);
+                }catch (IOException | URISyntaxException e){
+                    e.printStackTrace();
+                }
+        }else{
+                System.out.println("djhfsh");
+         }
+         }
     }
     
     
