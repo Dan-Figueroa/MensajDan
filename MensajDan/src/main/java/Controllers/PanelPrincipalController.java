@@ -6,8 +6,12 @@ package Controllers;
 
 import Modelo.Conector;
 import Modelo.Contactos;
+import Modelo.Conversacion;
+import Modelo.Mensaje;
 import Modelo.Usuario;
 import ModeloDao.ContactoDao;   
+import ModeloDao.ConversacionesDao;
+import ModeloDao.MensajeDao;
 import ModeloDao.UsuarioDao;
 import Utils.BotonesInvisibles;
 import Utils.PanelesVisibles;
@@ -28,6 +32,8 @@ public class PanelPrincipalController implements ActionListener{
     private PanelesVisibles panelUtil;
     private UsuarioDao useDao;
     private String ip;
+    private String ipContacto;
+    private String NombreUser;
     private boolean esServidor = false;
     
 
@@ -47,8 +53,8 @@ public class PanelPrincipalController implements ActionListener{
                 int selectedRow = principalV.jTableContac.getSelectedRow();
                 if (selectedRow != -1) {
                     String nombreContacto = principalV.jTableContac.getValueAt(selectedRow, 0).toString();
-                    String ipContacto = ObtenerIpContacto(nombreContacto);
-
+                    ipContacto = ObtenerIpContacto(nombreContacto);
+                    CrearConversacion();
                     panelUtil.mostrarPanel(principalV.jPanelMensajeria);
                     principalV.mensajeC.mensaV.jLabelNombreContac.setText(nombreContacto);
                     principalV.mensajeC.mensaV.jLabelPruebaIPconta.setText(ipContacto);
@@ -87,6 +93,42 @@ public class PanelPrincipalController implements ActionListener{
             Mostrar(); // Carga los contactos en la tabla
         } else {
             System.out.println("Vista inicializada sin cargar contactos.");
+        }
+    }
+    
+    private void CrearConversacion(){
+        Conversacion conver = new Conversacion();
+        conver.setIpUsuario1(ip);
+        conver.setIpUsuario2(ipContacto);
+        ConversacionesDao converDao = new ConversacionesDao();
+        if(converDao.existeConversacion(conver.getIpUsuario1(), conver.getIpUsuario2())){
+            conver.setIdConv(converDao.obtenerIdConversacion(conver.getIpUsuario1(), conver.getIpUsuario2()));
+            principalV.mensajeC.setIdConversacion(conver.getIdConv());
+            MensajeDao mensaDao = new MensajeDao();
+            ArrayList <Mensaje> mensa = mensaDao.obtenerMensajesPorConversacion(conver.getIdConv());
+            StringBuilder mensajesText = new StringBuilder();
+            // Iterar sobre los mensajes y agregarlos al StringBuilder
+            for (Mensaje mensaje : mensa) {
+                // Puedes agregar el contenido del mensaje y la fecha, si lo deseas
+                mensajesText.append("De: ").append(NombreUser).append("\n").append(mensaje.getContenido()).append("\n\n");
+            }
+            // Establecer el texto acumulado en el JTextArea
+            principalV.mensajeC.mensaV.jTextArea1.setText(mensajesText.toString());
+        }else{
+            if(converDao.agregarConversacion(conver)){
+                conver.setIdConv(converDao.obtenerIdConversacion(conver.getIpUsuario1(), conver.getIpUsuario2()));
+                principalV.mensajeC.setIdConversacion(conver.getIdConv());
+                MensajeDao mensaDao = new MensajeDao();
+                ArrayList <Mensaje> mensa = mensaDao.obtenerMensajesPorConversacion(conver.getIdConv());
+                StringBuilder mensajesText = new StringBuilder();
+                // Iterar sobre los mensajes y agregarlos al StringBuilder
+                for (Mensaje mensaje : mensa) {
+                    // Puedes agregar el contenido del mensaje y la fecha, si lo deseas
+                    mensajesText.append("De: ").append(mensaje.getIpUsuario()).append("\n").append(mensaje.getContenido()).append("\n\n");
+                }
+                // Establecer el texto acumulado en el JTextArea
+                principalV.mensajeC.mensaV.jTextArea1.setText(mensajesText.toString());
+            }
         }
     }
     
@@ -164,8 +206,11 @@ public class PanelPrincipalController implements ActionListener{
     public void PasarDatos(){
         Usuario user = new Usuario();
         user = useDao.obtenerUsuarioPorIp(ip);
+        user = useDao.obtenerUsuarioPorIp(ip);
+        NombreUser= user.getNombre();
         principalV.mensajeC.setUsuario(user.getIpUsuario(), user.getNombre());
     }
+    
     
     public String ObtenerIpContacto(String nom){
         ContactoDao contactoDao = new ContactoDao();

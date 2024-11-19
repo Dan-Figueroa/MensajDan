@@ -4,7 +4,6 @@
  */
 package Modelo;
 
-import java.security.Timestamp;
 
 /**
  *

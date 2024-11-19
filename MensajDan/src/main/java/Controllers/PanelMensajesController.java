@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controllers;
+import Modelo.Mensaje;
+import ModeloDao.MensajeDao;
 import Utils.BotonesInvisibles;
 import Utils.LimpiarCampos;
 import Utils.PanelesVisibles;
@@ -27,6 +29,7 @@ public class PanelMensajesController implements ActionListener{
     private BotonesInvisibles btn;
     private String nombre;
     private String ip;
+    private int id;
     DateFormat  hora = new SimpleDateFormat("HH:mm:ss");
     Date horaactual= new Date();
 
@@ -48,6 +51,18 @@ public class PanelMensajesController implements ActionListener{
             EnviarMensaje();
         }
     }
+    
+    private void guardarMensajes(){
+        MensajeDao mensaDao = new MensajeDao();
+        Mensaje mensa = new Mensaje();
+        mensa.setIdConv(id);
+        mensa.setIpUsuario(ip);
+        mensa.setEstado("leído");
+        mensa.setContenido(mensaV.jTextFieldMensaje.getText());
+        if(mensaDao.agregarMensaje(mensa)){
+            System.out.println("mensaje agregado");
+        }
+    }
 
     private void EnviarMensaje(){
         Servicios.Messeger.Servidor.enviarMSG(nombre+" : \n"+
@@ -55,12 +70,14 @@ public class PanelMensajesController implements ActionListener{
         //this.mensaV.jTextArea1.setForeground(Color.BLUE);
         this.mensaV.jTextArea1.setText(this.mensaV.jTextArea1.getText()+" \n "+
         nombre+" : \n "+ this.mensaV.jTextFieldMensaje.getText() +" : "+hora.format(horaactual));
+        guardarMensajes();
         mensaV.jTextFieldMensaje.setText("");
     }
 
     private void CerrarServidor(){
         panelUtil.mostrarPanel(mensaV.jPanelPrincipal);
         Servicios.Messeger.cerrarserver();
+        limpiaCampo.limpiarTextAreas(mensaV.jTextArea1);
         panelUtil.cerrarPanel(mensaV.jPanelMensajeria);
         System.out.println("Servidor cerrado");
     }
@@ -73,5 +90,9 @@ public class PanelMensajesController implements ActionListener{
     public void setUsuario(String ip, String nombre) {
         this.ip = ip;
         this.nombre = nombre;
+    }
+    
+    public void setIdConversacion(int id){
+        this.id = id;
     }
 }

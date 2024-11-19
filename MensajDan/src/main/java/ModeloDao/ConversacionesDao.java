@@ -41,34 +41,32 @@ public class ConversacionesDao {
         return resultado;
     }
     
-     public ArrayList<Conversacion> obtenerConversacionesPorUsuario(String ipUsuario) {
-        String sql = "SELECT * FROM Conversacion WHERE ipUsuario1 = ? OR ipUsuario2 = ?";
-        ArrayList<Conversacion> conversaciones = new ArrayList<>();
+     
+    public boolean existeConversacion(String ipUsuario1, String ipUsuario2) {
+        String sql = "SELECT * FROM Conversacion WHERE (ipUsuario1 = ? AND ipUsuario2 = ?) OR (ipUsuario1 = ? AND ipUsuario2 = ?)";
+        boolean existe = false;
 
         try {
             con = conexion.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, ipUsuario);
-            ps.setString(2, ipUsuario);
+            ps.setString(1, ipUsuario1);
+            ps.setString(2, ipUsuario2);
+            ps.setString(3, ipUsuario2);
+            ps.setString(4, ipUsuario1);
             rs = ps.executeQuery();
 
-            while (rs.next()) {
-                Conversacion conversacion = new Conversacion();
-                conversacion.setIdConv(rs.getInt("idConv"));
-                conversacion.setIpUsuario1(rs.getString("ipUsuario1"));
-                conversacion.setIpUsuario2(rs.getString("ipUsuario2"));
-                conversacion.setFechaInicio(rs.getString("fechaInicio"));
-
-                conversaciones.add(conversacion);
+            if (rs.next()) {
+                existe = true; // Si se encuentra una fila, significa que la conversación ya existe
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener conversaciones: " + e.getMessage());
+            System.err.println("Error al verificar la existencia de la conversación: " + e.getMessage());
         } finally {
             closeResources();
         }
 
-        return conversaciones;
+        return existe;
     }
+
 
     public Conversacion obtenerConversacion(String ipUsuario1, String ipUsuario2) {
         String sql = "SELECT * FROM Conversacion WHERE (ipUsuario1 = ? AND ipUsuario2 = ?) OR (ipUsuario1 = ? AND ipUsuario2 = ?)";
@@ -99,6 +97,33 @@ public class ConversacionesDao {
         return conversacion;
     }
     
+    public int obtenerIdConversacion(String ipUsuario1, String ipUsuario2) {
+        String sql = "SELECT idConv FROM Conversacion " +
+                     "WHERE (ipUsuario1 = ? AND ipUsuario2 = ?) " +
+                     "OR (ipUsuario1 = ? AND ipUsuario2 = ?)";
+        int idConv = -1; // Si no se encuentra, devolvemos -1
+
+        try {
+            con = conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ipUsuario1);
+            ps.setString(2, ipUsuario2);
+            ps.setString(3, ipUsuario2);
+            ps.setString(4, ipUsuario1);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                idConv = rs.getInt("idConv"); // Obtenemos el id de la conversación
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener id de la conversación: " + e.getMessage());
+        } finally {
+            closeResources();
+        }
+
+        return idConv; // Retorna -1 si no se encuentra la conversación, o el id si existe
+    }
+
     
     private void closeResources() {
         try {
