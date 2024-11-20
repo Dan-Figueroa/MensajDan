@@ -24,64 +24,86 @@ import javax.swing.SwingUtilities;
  * @author danfigueroa
  */
 public class ConectorCliente extends Thread {
-    private TelefonoView mensaV;
+    private SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
+    private Date horaActual = new Date();
     private Socket s;
     private ServerSocket ss;
-    private String ip;
+    private InputStreamReader entradaSocket;
     private DataOutputStream salida;
-    private DataInputStream entrada;
+    private BufferedReader entrada;
+    private DataInputStream entradaBinaria;
+    private String ip;
+    private boolean conectado = false;
     private static final int PUERTO = 8000;
-    private boolean conectado = false; // Inicialmente no está conectado
-    private static final int MAX_RETRIES = 5; // Número máximo de reintentos
-    private static final int RETRY_DELAY = 2000; // Retraso entre reintentos (en milisegundos)
+    private static final int MAX_RETRIES = 5;
+    private static final int RETRY_DELAY = 2000;
 
-    // Constructor para el cliente
+    // Constructor para el servidor (modo servidor aceptando conexión)
+    public ConectorCliente() {
+        try {
+            ss = new ServerSocket(PUERTO);
+            System.out.println("Esperando conexión...");
+            s = ss.accept(); // Espera conexión entrante
+            inicializarStreams();
+            conectado = true;
+            System.out.println("Cliente conectado.");
+        } catch (IOException e) {
+            System.out.println("Error al iniciar servidor: " + e.getMessage());
+        }
+    }
+
+    // Constructor para el cliente (modo cliente conectándose a un servidor)
     public ConectorCliente(String ip) {
         this.ip = ip;
-        // Inicia el hilo que intentará conectarse en segundo plano
-        start();
+        start(); // Inicia el hilo de conexión en segundo plano
+    }
+
+    // Inicializa flujos de entrada y salida
+    private void inicializarStreams() throws IOException {
+        entradaSocket = new InputStreamReader(s.getInputStream());
+        entrada = new BufferedReader(entradaSocket);
+        entradaBinaria = new DataInputStream(s.getInputStream());
+        salida = new DataOutputStream(s.getOutputStream());
     }
 
     @Override
     public void run() {
         int retries = 0;
-        while (retries < MAX_RETRIES) {
+        while (retries < MAX_RETRIES && !conectado) {
             try {
                 System.out.println("Intentando conectar al servidor...");
-                s = new Socket(ip, PUERTO); // Intentamos conectar al servidor
-                entrada = new DataInputStream(s.getInputStream());
-                salida = new DataOutputStream(s.getOutputStream());
+                s = new Socket(ip, PUERTO); // Conexión al servidor
+                inicializarStreams();
                 conectado = true;
                 System.out.println("Conexión establecida.");
-                break; // Si se conecta, salimos del bucle
             } catch (IOException e) {
                 retries++;
                 System.out.println("Error al conectar, reintentando... (" + retries + "/" + MAX_RETRIES + ")");
                 try {
-                    Thread.sleep(RETRY_DELAY); // Esperamos antes de reintentar
+                    Thread.sleep(RETRY_DELAY);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
             }
         }
-        if (retries == MAX_RETRIES) {
+        if (!conectado) {
             System.out.println("No se pudo conectar al servidor después de " + MAX_RETRIES + " intentos.");
-            conectado = false;
         }
 
-        // Si se ha conectado, se inicia la recepción de mensajes
         if (conectado) {
-            escucharMensajes();
+            escucharMensajes(); // Comienza a escuchar mensajes si la conexión se establece
         }
     }
 
-    // Método para escuchar mensajes desde el servidor
+    // Método para escuchar mensajes
     private void escucharMensajes() {
         while (conectado) {
             try {
-                String texto = entrada.readUTF();
+                String texto = entradaBinaria.readUTF();
                 SwingUtilities.invokeLater(() -> {
-                    TelefonoView.jTextArea1.setText(TelefonoView.jTextArea1.getText() + "\n" + texto);
+                    TelefonoView.jTextArea1.setText(
+                        TelefonoView.jTextArea1.getText() + "\n" + texto
+                    );
                 });
             } catch (EOFException | SocketException e) {
                 System.out.println("El servidor se ha desconectado.");
@@ -95,17 +117,28 @@ public class ConectorCliente extends Thread {
         }
     }
 
+    // Enviar mensajes
     public void enviarMSG(String msg) {
         if (!conectado) return;
-        SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
-        Date horaActual = new Date();
         try {
+            horaActual = new Date();
             salida.writeUTF(hora.format(horaActual) + " - " + msg + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // Leer un mensaje (opcional)
+    public String leerMSG() {
+        try {
+            return entrada.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Desconectar
     public void desconectar() {
         conectado = false;
         try {
@@ -116,6 +149,7 @@ public class ConectorCliente extends Thread {
         }
     }
 
+    // Verifica si está conectado
     public boolean isConectado() {
         return conectado;
     }

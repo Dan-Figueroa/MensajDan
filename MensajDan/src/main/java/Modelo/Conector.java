@@ -24,11 +24,25 @@ import javax.swing.SwingUtilities;
     private DataInputStream entrada; // Cambiado a DataInputStream
     private DataOutputStream salida;
     private boolean running = true;
+    private final int puerto = 8000;
     TelefonoView mensaV;
+    SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
+    Date horaActual = new Date();
 
     public Conector() {
         try {
-            ss = new ServerSocket(8000);
+            ss = new ServerSocket(puerto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public Conector(String ip) {
+        try {
+            s = new Socket(ip, puerto); // Establecer conexión como servidor remoto
+            System.out.println("Conexión establecida con el cliente en " + ip + ":" + puerto);
+            entrada = new DataInputStream(s.getInputStream());
+            salida = new DataOutputStream(s.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,10 +75,10 @@ import javax.swing.SwingUtilities;
     }
 
    public void enviarMSG(String msg) {
-        SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
-        Date horaActual = new Date();
         try {
-            salida.writeUTF(hora.format(horaActual) + " - " + msg + "\n");
+            if (salida != null) {
+                salida.writeUTF(hora.format(horaActual) + " - " + msg + "\n");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -17,6 +17,12 @@ public class Messenger {
         // El cliente se conecta en segundo plano, y si no lo logra, manejará el error
         // El hilo sigue su ejecución y no bloquea el hilo principal
     }
+    
+    public static void iniciarcliente()
+    {
+        Cliente = new ConectorCliente();
+       
+    }
 
     public static void cerrarcliente() {
         if (Cliente != null) {

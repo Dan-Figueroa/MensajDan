@@ -2,8 +2,8 @@ ModeloDao/UsuarioDao.class
 Controllers/PanelChatController.class
 View/TelefonoView$2.class
 Utils/LimpiarCampos.class
-Main/MensajDan.class
 Utils/VerificarCampos.class
+Main/MensajDan.class
 Controllers/PanelUserController.class
 Controllers/PanelNuevoUserController.class
 Controllers/PanelPrincipalController.class

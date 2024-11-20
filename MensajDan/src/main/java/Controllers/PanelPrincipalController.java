@@ -62,7 +62,6 @@ public class PanelPrincipalController implements ActionListener{
                     PasarDatos();
                     // Ejecutar la inicialización del servidor en un nuevo hilo
                     new Thread(() -> Servicios.Messeger.iniciarserver()).start();
-                    
                     panelUtil.cerrarPanel(principalV.jPanelPrincipal);
                 }
             }
