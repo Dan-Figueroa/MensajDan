@@ -1,4 +1,5 @@
-# Mensajean
+# MensaDan
+
 
 MensaDan es una aplicación de mensajería desarrollada en Java que permite la comunicación en tiempo real entre dos o más computadoras mediante sockets TCP/IP, integrando persistencia de mensajes en una base de datos PostgreSQL.
 
